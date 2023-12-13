@@ -29,7 +29,9 @@
 #end
 
 
-{"className":"FormStep","label":"Адрес для переписки с Роспатентом","value": ""},
+#if ($s9006_c2['arguments']['SUBSERVICE'] != "att_and_reg" && $s9006_c2['arguments']['SUBSERVICE'] != "restore")
+    {"className":"FormStep","label":"Адрес для переписки с Роспатентом","value": ""},
+#end
         #if ($s9006_c2['arguments']['SUBSERVICE'] == "fix_errors")
             #if($s1001_2_c2['arguments']['SUBSUBSERVICE'] == "applicant" || $s1001_2_c2['arguments']['SUBSUBSERVICE'] == "third")
                 #if(!$orgType)
@@ -75,7 +77,7 @@
                 {"className":"FieldText", "label": "Фамилия руководителя", "value": "$s0120_c1['storedValues']['chiefLastName']"},
                 {"className":"FieldText", "label": "Имя руководителя", "value": "$s0120_c1['storedValues']['chiefFirstName']"},
             #end
-        #elseif ($s9006_c2['arguments']['SUBSERVICE'] == "restore")
+        #elseif ($s9006_c2['arguments']['SUBSERVICE'] == "restore DELETED")
             #if(!$orgType)
                 {"className":"FieldText", "label": "Фамилия", "value": "$s7002_c1['storedValues']['lastName']"},
                 {"className":"FieldText", "label": "Имя", "value": "$s7002_c1['storedValues']['firstName']"},
@@ -123,7 +125,7 @@
                 {"className":"FieldText", "label": "Отчество", "value": "$s5005['storedValues']['middleName']"},
                 {"className":"FieldText", "label": "Адрес для переписки", "value": "$s5006_3_c1['address']['fullAddress']"},
             #end
-        #elseif ($s9006_c2['arguments']['SUBSERVICE'] == "att_and_reg")
+        #elseif ($s9006_c2['arguments']['SUBSERVICE'] == "att_and_reg DELETED")
             #if(!$orgType)
                 #if($s2017_c1)
 					#if($s2017_c2)
@@ -313,6 +315,35 @@
             #elseif ($s6950_c1)
                 {"className":"FieldText", "label": "Номер телефона", "value": "$s6950_c1"},
                 {"className":"FieldText", "label": "Электронная почта", "value": "$s6951_c1"},
+            #end
+        #end
+    #end
+
+
+#if ($s9006_c2['arguments']['SUBSERVICE'] == "att_and_reg" || $s9006_c2['arguments']['SUBSERVICE'] == "restore")
+    {"className":"FormStep","label":"Адрес для переписки с Роспатентом","value": ""},
+#end
+    #if ($s9006_c2['arguments']['SUBSERVICE'] == "restore")
+        #if(!$orgType)
+            {"className":"FieldText", "label": "Фамилия", "value": "$s7002_c1['storedValues']['lastName']"},
+            {"className":"FieldText", "label": "Имя", "value": "$s7002_c1['storedValues']['firstName']"},
+            {"className":"FieldText", "label": "Отчество", "value": "$s7002_c1['storedValues']['middleName']"},
+            {"className":"FieldText", "label": "Адрес для переписки", "value": "$s7003_c1['address']['fullAddress']"},
+        #end
+    #elseif ($s9006_c2['arguments']['SUBSERVICE'] == "att_and_reg")
+        #if(!$orgType)
+            #if($s2017_c1)
+				#if($s2017_c2)
+					{"className":"FieldText", "label": "ФИО", "value": "$s2017_c2 $s2017_c3 $s2017_c4"},
+				#else
+					{"className":"FieldText", "label": "Название ореганизации", "value": "$s2017_c5"},
+				#end
+			#end
+
+            #if($s2017_c1)
+                {"className":"FieldText", "label": "Адрес для переписки", "value": "$s2017_c6['fullAddress']"},
+            #else
+                {"className":"FieldText", "label": "Адрес для переписки", "value": "$s2015_c1['address']['fullAddress']"},
             #end
         #end
     #end
@@ -982,73 +1013,6 @@
 
 
 #if($s9006_c2['arguments']['SUBSERVICE'] == "fix_errors")
-    {"className":"FormStep", "label": "Исправления", "value": ""},
-	#foreach ($val in $s1015_c1)
-	    #if($val['s1015_c1_c1']['id'] == 'reestr') 
-            {"className":"FieldText", "label": "Место ошибки", "value": "Реестр ПП"},
-        #end
-		#if($val['s1015_c1_c1']['id'] == 'vip') 
-            {"className":"FieldText", "label": "Место ошибки", "value": "Выписка из Реестра ПП"},
-        #end
-		#if($val['s1015_c1_c1']['id'] == 'uved')
-            {"className":"FieldText", "label": "Место ошибки", "value": "Уведомление"},
-        #end
-		#if($val['s1015_c1_c1']['id'] == 'prot')
-            {"className":"FieldText", "label": "Место ошибки", "value": "Протокол"},
-        #end
-		#if($val['s1015_c1_c1']['id'] == 'svid')
-            {"className":"FieldText", "label": "Место ошибки", "value": ""},
-        #end
-
-        #if($val['s1015_c1_c4']) 
-            {"className":"FieldText", "label": "Дата", "value": "$val['s1015_c1_c4'].substring(0,10)"},
-		#end
-
-		#if($val['s1015_c1_c2']) 
-            {"className":"FieldText", "label": "Номер уведомления", "value": "$val['s1015_c1_c2']"},
-		#end
-
-		#if($val['s1015_c1_c3']) 
-            {"className":"FieldText", "label": "Номер протокола", "value": "$val['s1015_c1_c3']"},
-		#end
-		{"className":"FieldText", "label": "Данные, которые следует исправить", "value": "$val['s1015_c1_c5']"},
-		{"className":"FieldText", "label": "Данные в исправленном виде", "value": "$val['s1015_c1_c6']"},
-	#end
-
-	#foreach ($val in $s1014_c1)
-	    #if($val['s1014_c1_c1']['id'] == 'reestr') 
-            {"className":"FieldText", "label": "Место ошибки", "value": "Реестр ПП"},
-        #end
-		#if($val['s1014_c1_c1']['id'] == 'vip') 
-            {"className":"FieldText", "label": "Место ошибки", "value": "Выписка из Реестра ПП"},
-        #end
-		#if($val['s1014_c1_c1']['id'] == 'uved')
-            {"className":"FieldText", "label": "Место ошибки", "value": "Уведомление"},
-        #end
-		#if($val['s1014_c1_c1']['id'] == 'prot')
-            {"className":"FieldText", "label": "Место ошибки", "value": "Протокол"},
-        #end
-		#if($val['s1014_c1_c1']['id'] == 'svid')
-            {"className":"FieldText", "label": "Место ошибки", "value": ""},
-        #end
-
-        #if($val['s1014_c1_c4']) 
-            {"className":"FieldText", "label": "Дата", "value": "$val['s1014_c1_c4'].substring(0,10)"},
-		#end
-
-		#if($val['s1014_c1_c2']) 
-            {"className":"FieldText", "label": "Номер уведомления", "value": "$val['s1014_c1_c2']"},
-		#end
-
-		#if($val['s1014_c1_c3']) 
-            {"className":"FieldText", "label": "Номер протокола", "value": "$val['s1014_c1_c3']"},
-		#end
-
-        {"className":"FormStep", "label": "Исправления", "value": ""},
-		{"className":"FieldText", "label": "Данные, которые следует исправить", "value": "$val['s1014_c1_c5']"},
-		{"className":"FieldText", "label": "Данные в исправленном виде", "value": "$val['s1014_c1_c6']"},
-	#end
-                
     #if($s1016_c1 && $s1016_c1 != "")
         {"className":"FormStep", "label": "Перечень прилагаемых документов", "value": ""},
         {"className":"FieldText", "label": "Документ, подтверждающий полномочия представителя", "value": "  "}, 
@@ -1448,7 +1412,7 @@
 #if($s7010_c1)
 	#foreach($val in $s7010_c1)
 		#if($val['s7010_c11'])
-            {"className":"FieldText", "label": "Название работодателя", "value": "$val['s7010_c11']"},
+            {"className":"FieldText", "label": "Название объединения или организации", "value": "$val['s7010_c11']"},
 		#end
 	#end
 #end
@@ -1589,6 +1553,74 @@
             {"className":"FieldText", "label": "Адрес", "value": "(RUS) Россия, $s1013_c15['fullAddress']"},
         #end
     #end
+#end
+
+#if($s9006_c2['arguments']['SUBSERVICE'] == "fix_errors")
+    {"className":"FieldText", "label": "", "value": "Исправления"},
+	#foreach ($val in $s1015_c1)
+	    #if($val['s1015_c1_c1']['id'] == 'reestr') 
+            {"className":"FieldText", "label": "Место ошибки", "value": "Реестр ПП"},
+        #end
+		#if($val['s1015_c1_c1']['id'] == 'vip') 
+            {"className":"FieldText", "label": "Место ошибки", "value": "Выписка из Реестра ПП"},
+        #end
+		#if($val['s1015_c1_c1']['id'] == 'uved')
+            {"className":"FieldText", "label": "Место ошибки", "value": "Уведомление"},
+        #end
+		#if($val['s1015_c1_c1']['id'] == 'prot')
+            {"className":"FieldText", "label": "Место ошибки", "value": "Протокол"},
+        #end
+		#if($val['s1015_c1_c1']['id'] == 'svid')
+            {"className":"FieldText", "label": "Место ошибки", "value": ""},
+        #end
+
+        #if($val['s1015_c1_c4']) 
+            {"className":"FieldText", "label": "Дата", "value": "$val['s1015_c1_c4'].substring(0,10)"},
+		#end
+
+		#if($val['s1015_c1_c2']) 
+            {"className":"FieldText", "label": "Номер уведомления", "value": "$val['s1015_c1_c2']"},
+		#end
+
+		#if($val['s1015_c1_c3']) 
+            {"className":"FieldText", "label": "Номер протокола", "value": "$val['s1015_c1_c3']"},
+		#end
+		{"className":"FieldText", "label": "Данные, которые следует исправить", "value": "$val['s1015_c1_c5']"},
+		{"className":"FieldText", "label": "Данные в исправленном виде", "value": "$val['s1015_c1_c6']"},
+	#end
+
+	#foreach ($val in $s1014_c1)
+	    #if($val['s1014_c1_c1']['id'] == 'reestr') 
+            {"className":"FieldText", "label": "Место ошибки", "value": "Реестр ПП"},
+        #end
+		#if($val['s1014_c1_c1']['id'] == 'vip') 
+            {"className":"FieldText", "label": "Место ошибки", "value": "Выписка из Реестра ПП"},
+        #end
+		#if($val['s1014_c1_c1']['id'] == 'uved')
+            {"className":"FieldText", "label": "Место ошибки", "value": "Уведомление"},
+        #end
+		#if($val['s1014_c1_c1']['id'] == 'prot')
+            {"className":"FieldText", "label": "Место ошибки", "value": "Протокол"},
+        #end
+		#if($val['s1014_c1_c1']['id'] == 'svid')
+            {"className":"FieldText", "label": "Место ошибки", "value": ""},
+        #end
+
+        #if($val['s1014_c1_c4']) 
+            {"className":"FieldText", "label": "Дата", "value": "$val['s1014_c1_c4'].substring(0,10)"},
+		#end
+
+		#if($val['s1014_c1_c2']) 
+            {"className":"FieldText", "label": "Номер уведомления", "value": "$val['s1014_c1_c2']"},
+		#end
+
+		#if($val['s1014_c1_c3']) 
+            {"className":"FieldText", "label": "Номер протокола", "value": "$val['s1014_c1_c3']"},
+		#end
+
+		{"className":"FieldText", "label": "Данные, которые следует исправить", "value": "$val['s1014_c1_c5']"},
+		{"className":"FieldText", "label": "Данные в исправленном виде", "value": "$val['s1014_c1_c6']"},
+	#end
 #end
 {}
 ]

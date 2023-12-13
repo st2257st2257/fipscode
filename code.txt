@@ -1,0 +1,1590 @@
+[
+{"className":"FieldText", "label": "Наименование ведомства:", "value": "Федеральная службу по интеллектуальной собственности"},
+
+{"className":"Form","label": "АТТЕСТАЦИЯ ПАТЕНТНЫХ ПОВЕРЕННЫХ","value": ""},
+{"className":"FormStep","label":"Номер заявления на ЕПГУ","value": ""},
+    {"className":"FieldText", "label": "", "value": "$orderId"},
+{"className":"FormStep","label":"Дата и время подачи заявления","value": ""},
+    {"className":"FieldText", "label": "", "value": "$dateTool.get("yyyy-MM-dd' 'HH:mm")"},
+
+{"className":"FormStep", "label": "Тип заявления", "value": ""},
+    #if($s9005_c1)
+        {"className":"FieldText", "label": "Предоставляемая услуга", "value": "$s9005_c1['text']"},
+    #else
+        {"className":"FieldText", "label": "Предоставляемая услуга", "value": "$s9004_c1['text']"},
+    #end
+#if($s9006_c2['arguments']['SUBSERVICE'] == "att_and_reg")
+    #if($s2002_c1 != "general")
+        {"className":"FieldText", "label": "Заявление подаётся", "value": "в связи с решением апелляционной комиссии"},
+        #if ($s2003_c1 == "accept_results")
+            {"className":"FieldText", "label": "На основании", "value": "Признания результатов квалификационного экзамена удовлетворительными и аттестации в качестве патентного поверенного"},
+        #elseif ($s2003_c1 == "repeat_exam")
+            {"className":"FieldText", "label": "На основании", "value": "Повторного проведения квалификационного экзамена"},
+        #elseif ($s2003_c1 == "repeat_considering")
+            {"className":"FieldText", "label": "На основании", "value": "Повторного рассмотрения вопроса о допуске к квалификационному экзамену"},
+        #end
+    #else
+        {"className":"FieldText", "label": "Заявление подаётся", "value": "в общем порядке"},
+    #end
+#end
+
+
+{"className":"FormStep","label":"Адрес для переписки с Роспатентом","value": ""},
+        #if ($s9006_c2['arguments']['SUBSERVICE'] == "fix_errors")
+            #if($s1001_2_c2['arguments']['SUBSUBSERVICE'] == "applicant" || $s1001_2_c2['arguments']['SUBSUBSERVICE'] == "third")
+                #if(!$orgType)
+                    {"className":"FieldText", "label": "Фамилия", "value": "$s1008_c1['storedValues']['lastName']"},
+                    {"className":"FieldText", "label": "Имя", "value": "$s1008_c1['storedValues']['firstName']"},
+                    {"className":"FieldText", "label": "Отчество", "value": "$s1008_c1['storedValues']['middleName']"},
+                    {"className":"FieldText", "label": "Адрес для переписки", "value": "$s1952_c1['address']['fullAddress']"},
+                #elseif($orgType == "BUSINESS")
+                    {"className":"FieldText", "label": "", "value": "Индивидуальный предприниматель"},
+                    {"className":"FieldText", "label": "Фамилия", "value": "$s1020_c1['storedValues']['chiefLastName']"},
+                    {"className":"FieldText", "label": "Имя", "value": "$s1020_c1['storedValues']['chiefFirstName']"},
+                    {"className":"FieldText", "label": "Отчество", "value": "$s1020_c1['storedValues']['chiefMiddleName']"},
+                    {"className":"FieldText", "label": "Адрес для переписки", "value": "$s1952_c1['address']['fullAddress']"},
+                #else
+                    {"className":"FieldText", "label": "Полное наименование", "value": "$c1009_c1['storedValues']['fullName']"},
+                    #if($s1953_c1)
+                        {"className":"FieldText", "label": "Юридический адрес", "value": "$s1953_c1['address']['fullAddress']"},
+                    #elseif($s1053_c1)
+                        {"className":"FieldText", "label": "Юридический адрес", "value": "$s1053_c1['address']['fullAddress']"},
+                    #end
+                #end
+            #else
+                {"className":"FieldText", "label": "Фамилия", "value": "$s1004_c1['storedValues']['lastName']"},
+                {"className":"FieldText", "label": "Имя", "value": "$s1004_c1['storedValues']['firstName']"},
+                {"className":"FieldText", "label": "Отчество", "value": "$s1004_c1['storedValues']['middleName']"},
+                #if ($s1053_c1)
+                    {"className":"FieldText", "label": "Адрес для переписки", "value": "$s1053_c1['address']['fullAddress']"},
+                #else
+                    {"className":"FieldText", "label": "Адрес для переписки", "value": "$s1052_c1['address']['fullAddress']"},
+                #end
+            #end
+        #elseif ($s9006_c2['arguments']['SUBSERVICE'] == "get_extract")
+            #if(!$orgType)
+                {"className":"FieldText", "label": "Фамилия", "value": "$s0103_c1['storedValues']['lastName']"},
+                {"className":"FieldText", "label": "Имя", "value": "$s0103_c1['storedValues']['firstName']"},
+                {"className":"FieldText", "label": "Отчество", "value": "$s0103_c1['storedValues']['middleName']"},
+                {"className":"FieldText", "label": "Адрес для переписки", "value": "$s0152_c1['address']['fullAddress']"},
+            #elseif ($s9000_c2['arguments']['ACCOUNT_TYPE'] == 'Юридическое лицо')
+                {"className":"FieldText", "label": "Название организации", "value": "$s0113_c1['storedValues']['fullName']"},
+                {"className":"FieldText", "label": "Юридический адрес", "value": "$s0153_c1['address']['fullAddress']"},
+            #elseif ($s9000_c2['arguments']['ACCOUNT_TYPE'] == 'ИП')
+                {"className":"FieldText", "label": "Название организации", "value": "$s0120_c1['storedValues']['fullName']"},
+                {"className":"FieldText", "label": "Фамилия руководителя", "value": "$s0120_c1['storedValues']['chiefLastName']"},
+                {"className":"FieldText", "label": "Имя руководителя", "value": "$s0120_c1['storedValues']['chiefFirstName']"},
+            #end
+        #elseif ($s9006_c2['arguments']['SUBSERVICE'] == "restore")
+            #if(!$orgType)
+                {"className":"FieldText", "label": "Фамилия", "value": "$s7002_c1['storedValues']['lastName']"},
+                {"className":"FieldText", "label": "Имя", "value": "$s7002_c1['storedValues']['firstName']"},
+                {"className":"FieldText", "label": "Отчество", "value": "$s7002_c1['storedValues']['middleName']"},
+                {"className":"FieldText", "label": "Адрес для переписки", "value": "$s7003_c1['address']['fullAddress']"},
+            #end
+        #elseif ($s9006_c2['arguments']['SUBSERVICE'] == "exclude_reestr")
+            #if(!$orgType)
+                #if ($s4004_c1)
+                    {"className":"FieldText", "label": "Фамилия", "value": "$s4004_c1['storedValues']['lastName']"},
+                    {"className":"FieldText", "label": "Имя", "value": "$s4004_c1['storedValues']['firstName']"},
+                    {"className":"FieldText", "label": "Отчество", "value": "$s4004_c1['storedValues']['middleName']"},
+                    {"className":"FieldText", "label": "Адрес для переписки", "value": "$s4102_c1['address']['fullAddress']"},
+                #elseif ($s6021_c1)
+                    {"className":"FieldText", "label": "Фамилия", "value": "$s6021_c1['storedValues']['lastName']"},
+                    {"className":"FieldText", "label": "Имя", "value": "$s6021_c1['storedValues']['firstName']"},
+                    {"className":"FieldText", "label": "Отчество", "value": "$s6021_c1['storedValues']['middleName']"},
+                    {"className":"FieldText", "label": "Адрес для переписки", "value": "$s6952_c1['address']['fullAddress']"},
+                #end
+            #elseif ($s9000_c2['arguments']['ACCOUNT_TYPE'] == 'Юридическое лицо')
+                {"className":"FieldText", "label": "Название организации", "value": "$s6022_c1['storedValues']['fullName']"},
+                {"className":"FieldText", "label": "Почтовый адрес", "value": "$s6953_c1['address']['fullAddress']"},
+            #end
+        #elseif ($s9006_c2['arguments']['SUBSERVICE'] == "exclude_reestr_third")
+            #if(!$orgType)
+                {"className":"FieldText", "label": "Фамилия", "value": "$s6021_c1['storedValues']['lastName']"},
+                {"className":"FieldText", "label": "Имя", "value": "$s6021_c1['storedValues']['firstName']"},
+                {"className":"FieldText", "label": "Отчество", "value": "$s6021_c1['storedValues']['middleName']"},
+                {"className":"FieldText", "label": "Адрес для переписки", "value": "$s6952_c1['address']['fullAddress']"},
+            #elseif ($s9000_c2['arguments']['ACCOUNT_TYPE'] == 'Юридическое лицо')
+                {"className":"FieldText", "label": "Название организации", "value": "$s6022_c1['storedValues']['fullName']"},
+                {"className":"FieldText", "label": "ИНН", "value": "$s6022_c1['storedValues']['inn']"},
+                {"className":"FieldText", "label": "ОГРН", "value": "$s6022_c1['storedValues']['ogrn']"},
+            #elseif ($s9000_c2['arguments']['ACCOUNT_TYPE'] == 'ИП')
+                {"className":"FieldText", "label": "Название организации", "value": "$s6040_c1['storedValues']['fullName']"},
+                {"className":"FieldText", "label": "Фамилия руководителя", "value": "$s6040_c1['storedValues']['chiefLastName']"},
+                {"className":"FieldText", "label": "Имя руководителя", "value": "$s6040_c1['storedValues']['chiefFirstName']"},
+            #else
+
+            #end
+        #elseif ($s9006_c2['arguments']['SUBSERVICE'] == "change_reestr")
+            #if(!$orgType)
+                {"className":"FieldText", "label": "Фамилия", "value": "$s5005['storedValues']['lastName']"},
+                {"className":"FieldText", "label": "Имя", "value": "$s5005['storedValues']['firstName']"},
+                {"className":"FieldText", "label": "Отчество", "value": "$s5005['storedValues']['middleName']"},
+                {"className":"FieldText", "label": "Адрес для переписки", "value": "$s5006_3_c1['address']['fullAddress']"},
+            #end
+        #elseif ($s9006_c2['arguments']['SUBSERVICE'] == "att_and_reg")
+            #if(!$orgType)
+                {"className":"FieldText", "label": "Фамилия", "value": "$s2012_c1['storedValues']['lastName']"},
+                {"className":"FieldText", "label": "Имя", "value": "$s2012_c1['storedValues']['firstName']"},
+                {"className":"FieldText", "label": "Отчество", "value": "$s2012_c1['storedValues']['middleName']"},
+                #if($s2017_c1)
+                    {"className":"FieldText", "label": "Адрес для переписки", "value": "$s2017_c6['fullAddress']"},
+                #else
+                    {"className":"FieldText", "label": "Адрес для переписки", "value": "$s2015_c1['address']['fullAddress']"},
+                #end
+            #end
+        #elseif ($s9006_c2['arguments']['SUBSERVICE'] == "get_svid")
+            #if(!$orgType)
+                {"className":"FieldText", "label": "Фамилия", "value": "$s2c2['storedValues']['lastName']"},
+                {"className":"FieldText", "label": "Имя", "value": "$s2c2['storedValues']['firstName']"},
+                {"className":"FieldText", "label": "Отчество", "value": "$s2c2['storedValues']['middleName']"},
+            #end
+        #else
+            {"className":"FieldText", "label": "Ошибка", "value": "Определение услуги"},
+        #end
+
+
+{"className":"FormStep","label":"Контактные данные","value": ""},
+    #if($orgType == "LEGAL")
+        #if($s9006_c2['arguments']['SUBSERVICE'] == "fix_errors")
+            #if($s0150_c1)
+                {"className":"FieldText", "label": "Номер телефона", "value": "$s0150_c1"},
+            #elseif($s1950_c1)
+                {"className":"FieldText", "label": "Номер телефона", "value": "$s1950_c1"},
+            #end
+            #if($s0151_c1)
+                {"className":"FieldText", "label": "Электронная почта", "value": "$s0151_c1"},
+            #elseif($s1951_c1)
+                {"className":"FieldText", "label": "Электронная почта", "value": "$s1951_c1"},
+            #end
+        #elseif ($s9006_c2['arguments']['SUBSERVICE'] == "get_extract")
+            {"className":"FieldText", "label": "Номер телефона", "value": "$s0150_c1"},
+            {"className":"FieldText", "label": "Электронная почта", "value": "$s0151_c1"},
+        #elseif ($s9006_c2['arguments']['SUBSERVICE'] == "exclude_reestr")
+            {"className":"FieldText", "label": "Номер телефона", "value": "$s6950_c1"},
+            {"className":"FieldText", "label": "Электронная почта", "value": "$s6951_c1"},
+        #end
+    #elseif($orgType == "BUSINESS")
+        #if($s9006_c2['arguments']['SUBSERVICE'] == "fix_errors")
+            #if($s1001_2_c2['storedValues']['ACCOUNT_TYPE'] == "patpov")
+                {"className":"FieldText", "label": "Адрес постоянной регистрации", "value": "$s0152_c1['address']['fullAddress']"},
+                {"className":"FieldText", "label": "Cубъект Российской Федерации", "value": "$['address']['additionalArea']"},
+                {"className":"FieldText", "label": "Номер телефона ИП", "value": "$s0150_c1"},
+                {"className":"FieldText", "label": "Электронная почта", "value": "$s0151_c1"},
+            #else
+                {"className":"FieldText", "label": "Адрес постоянной регистрации", "value": "$s1952_c1['address']['fullAddress']"},
+                #if($s1952_c1['address']['additionalArea'] != "")
+                    {"className":"FieldText", "label": "Cубъект Российской Федерации", "value": "$s1952_c1['address']['additionalArea']"},
+                #end
+                {"className":"FieldText", "label": "Номер телефона ИП", "value": "$s1950_c1"},
+                {"className":"FieldText", "label": "Электронная почта", "value": "$s1951_c1"},
+            #end
+        #elseif ($s9006_c2['arguments']['SUBSERVICE'] == "get_extract")
+            {"className":"FieldText", "label": "Юридический адрес", "value": "$s0152_c1['address']['fullAddress']"},
+            #if($s0152_c1['address']['additionalArea'] != "")
+                    {"className":"FieldText", "label": "Cубъект Российской Федерации", "value": "$s0152_c1['address']['additionalArea']"},
+                #end
+            {"className":"FieldText", "label": "Номер телефона", "value": "$s0150_c1"},
+            {"className":"FieldText", "label": "Электронная почта", "value": "$s0151_c1"},
+        #elseif ($s9006_c2['arguments']['SUBSERVICE'] == "exclude_reestr")
+            {"className":"FieldText", "label": "Почтовый адрес", "value": "$s4103_c1['address']['fullAddress']"},
+            #if($s4103_c1['address']['additionalArea'] != "")
+                    {"className":"FieldText", "label": "Cубъект Российской Федерации", "value": "$s4103_c1['address']['additionalArea']"},
+                #end
+            {"className":"FieldText", "label": "Номер телефона", "value": "$s4100_c1"},
+            {"className":"FieldText", "label": "Электронная почта", "value": "$s4101_c1"},
+        #end
+    #elseif($orgType == "AGENCY")
+        #if($s9006_c2['arguments']['SUBSERVICE'] == "fix_errors")
+            {"className":"FieldText", "label": "Юридический адрес", "value": "$s0153_c1['address']['fullAddress']"},
+            #if($s0153_c1['address']['additionalArea'] != "")
+                    {"className":"FieldText", "label": "Cубъект Российской Федерации", "value": "$s0153_c1['address']['additionalArea']"},
+                #end
+            {"className":"FieldText", "label": "Номер телефона", "value": "$s0150_c1"},
+            {"className":"FieldText", "label": "Электронная почта", "value": "$s0151_c1"},
+        #elseif ($s9006_c2['arguments']['SUBSERVICE'] == "get_extract")
+            {"className":"FieldText", "label": "Юридический адрес", "value": "$s0153_c1['address']['fullAddress']"},
+            #if($s0153_c1['address']['additionalArea'] != "")
+                    {"className":"FieldText", "label": "Cубъект Российской Федерации", "value": "$s0153_c1['address']['additionalArea']"},
+                #end
+            {"className":"FieldText", "label": "Номер телефона", "value": "$s0150_c1"},
+            {"className":"FieldText", "label": "Электронная почта", "value": "$s0151_c1"},
+        #elseif ($s9006_c2['arguments']['SUBSERVICE'] == "exclude_reestr")
+            {"className":"FieldText", "label": "Почтовый адрес", "value": "$s4103_c1['address']['fullAddress']"},
+            #if($s4103_c1['address']['additionalArea'] != "")
+                    {"className":"FieldText", "label": "Cубъект Российской Федерации", "value": "$s4103_c1['address']['additionalArea']"},
+                #end
+            {"className":"FieldText", "label": "Номер телефона", "value": "$s4100_c1"},
+            {"className":"FieldText", "label": "Электронная почта", "value": "$s4101_c1"},
+        #end
+    #elseif(!$orgType)
+         #if($s9006_c2['arguments']['SUBSERVICE'] == "fix_errors")
+            #if($s1001_2_c2['arguments']['SUBSUBSERVICE'] != "patpov")
+                #if ($s1008_c1['storedValues']['firstName'])
+                    {"className":"FieldText", "label": "Почтовый адрес", "value": "$s1008_c1['storedValues']['lastName'] $s1008_c1['storedValues']['firstName'] $s1008_c1['storedValues']['middleName'] $s1952_c1['address']['fullAddress']"},
+                #else
+                    {"className":"FieldText", "label": "Почтовый адрес", "value": "$s1952_c1['address']['fullAddress']"},
+                #end
+
+                #if($s1952_c1['address']['additionalArea'] != "")
+                    {"className":"FieldText", "label": "Cубъект Российской Федерации", "value": "$s1952_c1['address']['additionalArea']"},
+                #end
+                {"className":"FieldText", "label": "Номер телефона", "value": "$s1950_c1"},
+                {"className":"FieldText", "label": "Электронная почта", "value": "$s1951_c1"},
+            #else
+                {"className":"FieldText", "label": "Почтовый адрес", "value": "$s1052_c1['address']['fullAddress']"},
+                #if($s1052_c1['address']['additionalArea'] != "")
+                    {"className":"FieldText", "label": "Cубъект Российской Федерации", "value": "$s1052_c1['address']['additionalArea']"},
+                #end
+                {"className":"FieldText", "label": "Номер телефона", "value": "$s1050_c1"},
+                {"className":"FieldText", "label": "Электронная почта", "value": "$s1051_c1"},
+            #end
+        #elseif ($s9006_c2['arguments']['SUBSERVICE'] == "restore")
+                #if($s7005_c1)
+                    #if($s7002_c1['storedValues']['lastName'])
+                        {"className":"FieldText", "label": "Почтовый адрес", "value": "$s7002_c1['storedValues']['lastName'] $s7002_c1['storedValues']['firstName'] $s7002_c1['storedValues']['middleName'] $s7005_c1"},
+                    #else
+                        {"className":"FieldText", "label": "Почтовый адрес", "value": "$s7005_c1"},
+                    #end
+                #else
+                    #if($s7002_c1['storedValues']['lastName'])
+                        {"className":"FieldText", "label": "Почтовый адрес", "value": "$s7002_c1['storedValues']['lastName'] $s7002_c1['storedValues']['firstName'] $s7002_c1['storedValues']['middleName'] $s7003_c1['address']['fullAddress']"},
+                    #else
+                        {"className":"FieldText", "label": "Почтовый адрес", "value": "$s7003_c1['address']['fullAddress']"},
+                    #end
+                #end
+                #if($s7003_c1['address']['additionalArea'] != "")
+                    {"className":"FieldText", "label": "Cубъект Российской Федерации", "value": "$s7003_c1['address']['additionalArea']"},
+                #end
+                {"className":"FieldText", "label": "Номер телефона", "value": "$s7007_1_c1"},
+                {"className":"FieldText", "label": "Электронная почта", "value": "$s7007_2_c1"},
+                #if($s7007_3_c1)
+					{"className":"FieldText", "label": "Адрес сайта", "value": "$s7007_3_c1"},
+				#end
+        #elseif ($s9006_c2['arguments']['SUBSERVICE'] == "change_reestr")
+                #if($s5005['storedValues']['firstName'])
+                    {"className":"FieldText", "label": "Почтовый адрес", "value": "$s5005['storedValues']['firstName'] $s5005['storedValues']['lastName'] $s5005['storedValues']['middleName'] $s5006_3_c1['address']['fullAddress']"},
+                #else
+                    {"className":"FieldText", "label": "Почтовый адрес", "value": "$s5006_3_c1['address']['fullAddress']"},
+                #end
+
+                #if($s5006_3_c1['address']['additionalArea'] != "")
+                    {"className":"FieldText", "label": "Cубъект Российской Федерации", "value": "$s5006_3_c1['address']['additionalArea']"},
+                #end
+                {"className":"FieldText", "label": "Номер телефона", "value": "$s5006_1_c1"},
+                {"className":"FieldText", "label": "Электронная почта", "value": "$s5006_2_c1"},
+        #elseif ($s9006_c2['arguments']['SUBSERVICE'] == "att_and_reg")
+                #if ($s2012_c1['storedValues']['firstName'])
+                    {"className":"FieldText", "label": "Почтовый адрес", "value": "$s2012_c1['storedValues']['firstName'] $s2012_c1['storedValues']['lastName'] $s2012_c1['storedValues']['middleName'] $s2015_c1['address']['fullAddress']"},
+                #else
+                    {"className":"FieldText", "label": "Почтовый адрес", "value": "$s2015_c1['address']['fullAddress']"},
+                #end
+
+                #if($s2015_c1['address']['additionalArea'] != "")
+                    {"className":"FieldText", "label": "Cубъект Российской Федерации", "value": "$s2015_c1['address']['additionalArea']"},
+                #end
+                {"className":"FieldText", "label": "Номер телефона", "value": "$s2018_1_c1"},
+                {"className":"FieldText", "label": "Электронная почта", "value": "$s2018_2_c1"},
+        #elseif ($s9006_c2['arguments']['SUBSERVICE'] == "get_extract")
+                #if ($s0103_c1['storedValues']['firstName'])
+                    {"className":"FieldText", "label": "Почтовый адрес", "value": "$s0103_c1['storedValues']['firstName'] $s0103_c1['storedValues']['lastName'] $s0103_c1['storedValues']['middleName'] $s0152_c1['address']['fullAddress']"},
+                #else
+                    {"className":"FieldText", "label": "Почтовый адрес", "value": "$s0152_c1['address']['fullAddress']"},
+                #end
+
+                #if($s0152_c1['address']['additionalArea'] != "")
+                    {"className":"FieldText", "label": "Cубъект Российской Федерации", "value": "$s0152_c1['address']['additionalArea']"},
+                #end
+                {"className":"FieldText", "label": "Номер телефона", "value": "$s0150_c1"},
+                {"className":"FieldText", "label": "Электронная почта", "value": "$s0151_c1"},
+        #elseif ($s9006_c2['arguments']['SUBSERVICE'] == "exclude_reestr")
+            #if ($s4100_c1)
+                {"className":"FieldText", "label": "Номер телефона", "value": "$s4100_c1"},
+                {"className":"FieldText", "label": "Электронная почта", "value": "$s4101_c1"},
+            #elseif ($s6950_c1)
+                {"className":"FieldText", "label": "Номер телефона", "value": "$s6950_c1"},
+                {"className":"FieldText", "label": "Электронная почта", "value": "$s6951_c1"},
+            #end
+        #end
+    #end
+
+#if($s9006_c2['arguments']['SUBSERVICE'] == "выдача патента")
+    {"className":"FormStep", "label": "Тип заявки на выдачу патента", "value": ""},
+#end
+
+#if($s9006_c2['arguments']['SUBSERVICE'] == "международная заявка")
+    {"className":"FormStep", "label": "Сведения о международной заявке, переводимой на национальную фазу в РФ", "value": ""},
+#end
+
+#if($s9006_c2['arguments']['SUBSERVICE'] == "Изобретение")
+    {"className":"FormStep", "label": "Изобретение", "value": ""},
+#end
+
+#if($s9006_c3['arguments']['WHOAREYOU'] != "applicant")
+    {"className":"FormStep", "label": "Заявитель", "value": ""},
+#else
+    {"className":"FormStep", "label": "Представитель заявителя", "value": ""},
+#end
+    #if($orgType == "LEGAL")
+        #if($s9006_c2['arguments']['SUBSERVICE'] == "fix_errors")
+            {"className":"FieldText", "label": "Полное наименование", "value": "$c1009_c1['storedValues']['fullName']"},
+            {"className":"FieldText", "label": "ОГРН", "value": "$c1009_c1['storedValues']['ogrn']"},
+            {"className":"FieldText", "label": "ИНН", "value": "$c1009_c1['storedValues']['inn']"},
+            {"className":"FieldText", "label": "КПП", "value": "$c1009_c1['storedValues']['kpp']"}, 
+        #elseif($s9006_c2['arguments']['SUBSERVICE'] == "get_extract")
+            #if($s9000_c2['arguments']['ACCOUNT_TYPE'] == 'Юридическое лицо')
+				{"className":"FieldText", "label": "ИНН", "value": "$s0113_c1['storedValues']['inn']"},
+				{"className":"FieldText", "label": "ОГРН", "value": "$s0113_c1['storedValues']['ogrn']"},
+			    #if($s0113_c1['storedValues']['kpp'])
+					{"className":"FieldText", "label": "КПП", "value": "$s0113_c1['storedValues']['kpp']"},
+				#end
+            #else
+                {"className":"FieldText", "label": "Полное наименование", "value": "$s0120_c1['storedValues']['fullName']"},
+                {"className":"FieldText", "label": "Сокращённое наименование", "value": "$s0120_c1['storedValues']['shortName']"},
+                {"className":"FieldText", "label": "ОГРН", "value": "$s0120_c1['storedValues']['ogrn']"},
+                {"className":"FieldText", "label": "ИНН", "value": "$s0120_c1['storedValues']['inn']"},
+                {"className":"FieldText", "label": "КПП", "value": "$s0120_c1['storedValues']['kpp']"},
+            #end
+        #elseif($s9006_c2['arguments']['SUBSERVICE'] == "exclude_reestr")
+			#if($s9000_c2['arguments']['ACCOUNT_TYPE'] == 'Юридическое лицо')
+				{"className":"FieldText", "label": "ИНН", "value": "$s6022_c1['storedValues']['inn']"},
+				{"className":"FieldText", "label": "ОГРН", "value": "$s6022_c1['storedValues']['ogrn']"},
+				#if($s6022_c1['storedValues']['kpp'])
+					{"className":"FieldText", "label": "КПП", "value": "$s6022_c1['storedValues']['kpp']"},
+				#end
+		    #elseif($s9000_c2['arguments']['ACCOUNT_TYPE'] == 'Физическое лицо')
+				{"className":"FieldText", "label": "Дата рождения", "value": "$s6021_c1['storedValues']['birthDate']"},
+				{"className":"FieldText", "label": "СНИЛС", "value": "$s6021_c1['storedValues']['snils']"},
+				{"className":"FieldText", "label": "Серия паспорта", "value": "$s6021_c1['storedValues']['rfPasportSeries'] $s6021_c1['storedValues']['rfPasportNumber']"},
+				{"className":"FieldText", "label": "Дата выдачи", "value": "$s6021_c1['storedValues']['rfPasportIssueDate']"},
+				{"className":"FieldText", "label": "Кем выдана", "value": "$s6021_c1['storedValues']['rfPasportIssuedBy']"},
+				{"className":"FieldText", "label": "Кем выдана", "value": "$s6021_c1['storedValues']['rfPasportIssuedById']"},
+				{"className":"FieldText", "label": "Место рождения", "value": "$s6021_c1['storedValues']['birthPlace']"},
+                {"className":"FieldText", "label": "Дата рождения", "value": "$s6021_c1['storedValues']['birthDate']"},
+		    #else
+				{"className":"FieldText", "label": "ИНН", "value": "$s6040_c1['storedValues']['inn']"},
+				{"className":"FieldText", "label": "ОГРН", "value": "$s6040_c1['storedValues']['ogrn']"},
+		    #end
+        #end
+    #elseif($orgType == "BUSINESS")
+        #if($s9006_c2['arguments']['SUBSERVICE'] == "fix_errors")
+            {"className":"FieldText", "label": "Полное наименование", "value": "$s1020_c1['storedValues']['fullName']"},
+            {"className":"FieldText", "label": "ОГРН", "value": "$s1020_c1['storedValues']['ogrn']"},
+            {"className":"FieldText", "label": "ИНН", "value": "$s1020_c1['storedValues']['inn']"},  
+        #elseif($s9006_c2['arguments']['SUBSERVICE'] == "get_extract")
+            {"className":"FieldText", "label": "Полное наименование", "value": "$s0120_c1['storedValues']['fullName']"},
+            {"className":"FieldText", "label": "ОГРН", "value": "$s0120_c1['storedValues']['ogrn']"},
+            {"className":"FieldText", "label": "ИНН", "value": "$s0120_c1['storedValues']['inn']"},
+        #elseif($s9006_c2['arguments']['SUBSERVICE'] == "exclude_reestr")
+            {"className":"FieldText", "label": "Фамилия", "value": "$s4004_c1['storedValues']['lastName']"},
+            {"className":"FieldText", "label": "Имя", "value": "$s4004_c1['storedValues']['firstName']"},
+            {"className":"FieldText", "label": "Отчество", "value": "$s4004_c1['storedValues']['middleName']"},
+            {"className":"FieldText", "label": "ИНН", "value": "$s4004_c1['storedValues']['inn']"},
+            {"className":"FieldText", "label": "СНИЛС", "value": "$s4004_c1['storedValues']['snils']"},
+        #end  
+    #elseif(!$orgType)
+        #if($s9006_c2['arguments']['SUBSERVICE'] == "fix_errors")
+            #if($s1001_2_c2['storedValues']['ACCOUNT_TYPE'] != "patpov")
+                {"className":"FieldText", "label": "Фамилия", "value": "$s1004_c1['storedValues']['lastName']"},
+                {"className":"FieldText", "label": "Имя", "value": "$s1004_c1['storedValues']['firstName']"},
+                {"className":"FieldText", "label": "Отчество", "value": "$s1004_c1['storedValues']['middleName']"},
+                {"className":"FieldText", "label": "СНИЛС", "value": "$s1004_c1['storedValues']['snils']"},
+                #if($s1004_c1 && $s1004_c1 !="")
+                    {"className":"FieldText", "label": "Дата рождения", "value": "$s1004_c1['storedValues']['birthDate']"},
+                #end
+                {"className":"FormStep", "label": "Документ удостоверяющий личность:", "value": ""},
+                {"className":"FieldText", "label": "Тип документа", "value": "Паспорт гражданина РФ"},
+                {"className":"FieldText", "label": "Серия", "value": "$s1004_c1['storedValues']['rfPasportSeries']"},
+                {"className":"FieldText", "label": "Номер", "value": "$s1004_c1['storedValues']['rfPasportNumber']"},
+                {"className":"FieldText", "label": "Дата выдачи", "value": "$s1004_c1['storedValues']['rfPasportIssueDate']"},
+                {"className":"FieldText", "label": "Кем выдан", "value": "$s1004_c1['storedValues']['rfPasportIssuedBy']"},
+                #if ($s1004_c1['storedValues']['rfPasportIssuedById'])
+                    {"className":"FieldText", "label": "Код подразделения", "value": "$s1004_c1['storedValues']['rfPasportIssuedById']"},
+                #end
+                {"className":"FieldText", "label": "Дата рождения", "value": "$s1004_c1['storedValues']['birthDate']"},
+            #elseif($s1001_2_c2['storedValues']['ACCOUNT_TYPE'] == "patpov")
+                {"className":"FieldText", "label": "Фамилия", "value": "$s1008_c1['storedValues']['lastName']"},
+                {"className":"FieldText", "label": "Имя", "value": "$s1008_c1['storedValues']['firstName']"},
+                {"className":"FieldText", "label": "СНИЛС", "value": "$s1008_c1['storedValues']['snils']"},
+                #if($s1008_c1 && $s1008_c1 !="")
+                    {"className":"FieldText", "label": "Дата рождения", "value": "$s1008_c1['storedValues']['birthDate']"},
+                #end
+                {"className":"FormStep", "label": "Документ удостоверяющий личность:", "value": ""},
+                {"className":"FieldText", "label": "Тип документа", "value": "Паспорт гражданина РФ"},
+                {"className":"FieldText", "label": "Серия", "value": "$s1008_c1['storedValues']['rfPasportSeries']"},
+                {"className":"FieldText", "label": "Номер", "value": "$s1008_c1['storedValues']['rfPasportNumber']"},
+                {"className":"FieldText", "label": "Дата выдачи", "value": "$s1008_c1['storedValues']['rfPasportIssueDate']"},
+                {"className":"FieldText", "label": "Кем выдан", "value": "$s1008_c1['storedValues']['rfPasportIssuedBy']"},
+                #if ($s1008_c1['storedValues']['rfPasportIssuedById'])
+                    {"className":"FieldText", "label": "Код подразделения", "value": "$s1008_c1['storedValues']['rfPasportIssuedById']"},
+                #end
+                {"className":"FieldText", "label": "Дата рождения", "value": "$s1008_c1['storedValues']['birthDate']"},
+            #end
+        #elseif ($s9006_c2['arguments']['SUBSERVICE'] == "att_and_reg")
+            {"className":"FieldText", "label": "Фамилия", "value": "$s2012_c1['storedValues']['lastName']"},
+            {"className":"FieldText", "label": "Имя", "value": "$s2012_c1['storedValues']['firstName']"},
+            {"className":"FieldText", "label": "Отчество", "value": "$s2012_c1['storedValues']['middleName']"},
+            {"className":"FieldText", "label": "ИНН", "value": "$s2012_c1['storedValues']['inn']"},
+            {"className":"FieldText", "label": "СНИЛС", "value": "$s2012_c1['storedValues']['snils']"},
+            {"className":"FieldText", "label": "", "value": "Документ удостоверяющий личность:"},
+                {"className":"FieldText", "label": "Тип документа", "value": "Паспорт гражданина РФ"},
+                {"className":"FieldText", "label": "Серия", "value": "$s2012_c1['storedValues']['rfPasportSeries']"},
+                {"className":"FieldText", "label": "Номер", "value": "$s2012_c1['storedValues']['rfPasportNumber']"},
+                {"className":"FieldText", "label": "Дата выдачи", "value": "$s2012_c1['storedValues']['rfPasportIssueDate']"},
+                {"className":"FieldText", "label": "Кем выдан", "value": "$s2012_c1['storedValues']['rfPasportIssuedBy']"},
+                #if ($s2012_c1['storedValues']['rfPasportIssuedById'])
+                    {"className":"FieldText", "label": "Код подразделения", "value": "$s2012_c1['storedValues']['rfPasportIssuedById']"},
+                #end
+                {"className":"FieldText", "label": "Дата рождения", "value": "$s2012_c1['storedValues']['birthDate']"},
+            {"className":"FieldText", "label": "Код страны места нахождения", "value": "$s2015_c1['address']['regionCode']"},
+            {"className":"FieldText", "label": "Адрес регистрации по месту жительства", "value": "$s2015_c1['address']['fullAddress']"},
+        #elseif ($s9006_c2['arguments']['SUBSERVICE'] == "restore")
+            {"className":"FieldText", "label": "Фамилия", "value": "$s7002_c1['storedValues']['lastName']"},
+            {"className":"FieldText", "label": "Имя", "value": "$s7002_c1['storedValues']['firstName']"},
+            {"className":"FieldText", "label": "Отчество", "value": "$s7002_c1['storedValues']['middleName']"},
+            {"className":"FieldText", "label": "СНИЛС", "value": "$s7002_c1['storedValues']['snils']"},
+            {"className":"FieldText", "label": "", "value": "Документ удостоверяющий личность:"},
+                {"className":"FieldText", "label": "Тип документа", "value": "Паспорт гражданина РФ"},
+                {"className":"FieldText", "label": "Серия", "value": "$s7002_c1['storedValues']['rfPasportSeries']"},
+                {"className":"FieldText", "label": "Номер", "value": "$s7002_c1['storedValues']['rfPasportNumber']"},
+                {"className":"FieldText", "label": "Дата выдачи", "value": "$s7002_c1['storedValues']['rfPasportIssueDate']"},
+                {"className":"FieldText", "label": "Кем выдан", "value": "$s7002_c1['storedValues']['rfPasportIssuedBy']"},
+                #if ($s7002_c1['storedValues']['rfPasportIssuedById'])
+                    {"className":"FieldText", "label": "Код подразделения", "value": "$s7002_c1['storedValues']['rfPasportIssuedById']"},
+                #end
+                {"className":"FieldText", "label": "Дата рождения", "value": "$s7002_c1['storedValues']['birthDate']"},
+            {"className":"FieldText", "label": "Код страны места нахождения", "value": "$s7003_c1['address']['regionCode']"},
+            {"className":"FieldText", "label": "Адрес регистрации по месту жительства", "value": "$s7003_c1['address']['fullAddress']"},
+        #elseif ($s9006_c2['arguments']['SUBSERVICE'] == "change_reestr")
+            {"className":"FieldText", "label": "Фамилия", "value": "$s5005['storedValues']['lastName']"},
+            {"className":"FieldText", "label": "Имя", "value": "$s5005['storedValues']['firstName']"},
+            {"className":"FieldText", "label": "Отчество", "value": "$s5005['storedValues']['middleName']"},
+            {"className":"FieldText", "label": "СНИЛС", "value": "$s5005['storedValues']['snils']"},
+            {"className":"FieldText", "label": "", "value": "Документ удостоверяющий личность:"},
+                {"className":"FieldText", "label": "Тип документа", "value": "Паспорт гражданина РФ"},
+                {"className":"FieldText", "label": "Серия", "value": "$s5005['storedValues']['rfPasportSeries']"},
+                {"className":"FieldText", "label": "Номер", "value": "$s5005['storedValues']['rfPasportNumber']"},
+                {"className":"FieldText", "label": "Дата выдачи", "value": "$s5005['storedValues']['rfPasportIssueDate']"},
+                {"className":"FieldText", "label": "Кем выдан", "value": "$s5005['storedValues']['rfPasportIssuedBy']"},
+                #if ($s5005['storedValues']['rfPasportIssuedById'])
+                    {"className":"FieldText", "label": "Код подразделения", "value": "$s5005['storedValues']['rfPasportIssuedById']"},
+                #end
+                {"className":"FieldText", "label": "Дата рождения", "value": "$s5005['storedValues']['birthDate']"},
+            {"className":"FieldText", "label": "Код страны места нахождения", "value": "$s5006_3_c1['address']['regionCode']"},
+            {"className":"FieldText", "label": "Адрес регистрации по месту жительства", "value": "$s5006_3_c1['address']['fullAddress']"},
+        #elseif ($s9006_c2['arguments']['SUBSERVICE'] == "get_extract")
+            {"className":"FieldText", "label": "Фамилия", "value": "$s0103_c1['storedValues']['lastName']"},
+            {"className":"FieldText", "label": "Имя", "value": "$s0103_c1['storedValues']['firstName']"},
+            {"className":"FieldText", "label": "Отчество", "value": "$s0103_c1['storedValues']['middleName']"},
+            {"className":"FieldText", "label": "СНИЛС", "value": "$s0103_c1['storedValues']['snils']"},
+            {"className":"FieldText", "label": "", "value": "Документ удостоверяющий личность:"},
+                {"className":"FieldText", "label": "Тип документа", "value": "Паспорт гражданина РФ"},
+                {"className":"FieldText", "label": "Серия", "value": "$s0103_c1['storedValues']['rfPasportSeries']"},
+                {"className":"FieldText", "label": "Номер", "value": "$s0103_c1['storedValues']['rfPasportNumber']"},
+                {"className":"FieldText", "label": "Дата выдачи", "value": "$s0103_c1['storedValues']['rfPasportIssueDate']"},
+                {"className":"FieldText", "label": "Кем выдан", "value": "$s0103_c1['storedValues']['rfPasportIssuedBy']"},
+                #if ($s0103_c1['storedValues']['rfPasportIssuedById'])
+                    {"className":"FieldText", "label": "Код подразделения", "value": "$s0103_c1['storedValues']['rfPasportIssuedById']"},
+                #end
+                {"className":"FieldText", "label": "Дата рождения", "value": "$s0103_c1['storedValues']['birthDate']"},
+            {"className":"FieldText", "label": "Код страны места нахождения", "value": "$s0152_c1['address']['regionCode']"},
+            {"className":"FieldText", "label": "Адрес регистрации по месту жительства", "value": "$s0152_c1['address']['fullAddress']"},
+        #elseif ($s9006_c2['arguments']['SUBSERVICE'] == "exclude_reestr")
+            #if($s4004_c1)
+                {"className":"FieldText", "label": "Фамилия", "value": "$s4004_c1['storedValues']['lastName']"},
+                {"className":"FieldText", "label": "Имя", "value": "$s4004_c1['storedValues']['firstName']"},
+                {"className":"FieldText", "label": "Отчество", "value": "$s4004_c1['storedValues']['middleName']"},
+                {"className":"FieldText", "label": "СНИЛС", "value": "$s4004_c1['storedValues']['snils']"},
+                {"className":"FieldText", "label": "", "value": "Документ удостоверяющий личность:"},
+                    {"className":"FieldText", "label": "Тип документа", "value": "Паспорт гражданина РФ"},
+                    {"className":"FieldText", "label": "Серия", "value": "$s4004_c1['storedValues']['rfPasportSeries']"},
+                    {"className":"FieldText", "label": "Номер", "value": "$s4004_c1['storedValues']['rfPasportNumber']"},
+                    {"className":"FieldText", "label": "Дата выдачи", "value": "$s4004_c1['storedValues']['rfPasportIssueDate']"},
+                    {"className":"FieldText", "label": "Кем выдан", "value": "$s4004_c1['storedValues']['rfPasportIssuedBy']"},
+                    #if ($s4004_c1['storedValues']['rfPasportIssuedById'])
+                        {"className":"FieldText", "label": "Код подразделения", "value": "$s4004_c1['storedValues']['rfPasportIssuedById']"},
+                    #end
+                    {"className":"FieldText", "label": "Дата рождения", "value": "$s4004_c1['storedValues']['birthDate']"},
+                {"className":"FieldText", "label": "Код страны места нахождения", "value": "$s4102_c1['address']['regionCode']"},
+                {"className":"FieldText", "label": "Адрес регистрации по месту жительства", "value": "$s4102_c1['address']['fullAddress']"},
+            #elseif ($s6021_c1)
+                {"className":"FieldText", "label": "Фамилия", "value": "$s6021_c1['storedValues']['lastName']"},
+                {"className":"FieldText", "label": "Имя", "value": "$s6021_c1['storedValues']['firstName']"},
+                {"className":"FieldText", "label": "Отчество", "value": "$s6021_c1['storedValues']['middleName']"},
+                {"className":"FieldText", "label": "СНИЛС", "value": "$s6021_c1['storedValues']['snils']"},
+                {"className":"FieldText", "label": "", "value": "Документ удостоверяющий личность:"},
+                    {"className":"FieldText", "label": "Тип документа", "value": "Паспорт гражданина РФ"},
+                    {"className":"FieldText", "label": "Серия", "value": "$s6021_c1['storedValues']['rfPasportSeries']"},
+                    {"className":"FieldText", "label": "Номер", "value": "$s6021_c1['storedValues']['rfPasportNumber']"},
+                    {"className":"FieldText", "label": "Дата выдачи", "value": "$s6021_c1['storedValues']['rfPasportIssueDate']"},
+                    {"className":"FieldText", "label": "Кем выдан", "value": "$s6021_c1['storedValues']['rfPasportIssuedBy']"},
+                    #if ($s6021_c1['storedValues']['rfPasportIssuedById'])
+                        {"className":"FieldText", "label": "Код подразделения", "value": "$s6021_c1['storedValues']['rfPasportIssuedById']"},
+                    #end
+                    {"className":"FieldText", "label": "Дата рождения", "value": "$s6021_c1['storedValues']['birthDate']"},
+            #end
+        #end
+    #else
+    #end
+
+
+#if($s9006_c2['arguments']['SUBSERVICE'] == "Авторы")
+    {"className":"FormStep", "label": "Авторы", "value": ""},
+#end
+
+#if($s9006_c2['arguments']['SUBSERVICE'] == "на приоритете")
+    {"className":"FormStep", "label": "Заявление на приоритете", "value": ""},
+#end
+
+#if($s9006_c2['arguments']['SUBSERVICE'] == "изобретение за счёт средств федерального бюджета")
+    {"className":"FormStep", "label": "Изобретение создано за счёт средств федерального бюджета", "value": ""},
+#end
+
+#if($s9006_c2['arguments']['SUBSERVICE'] == "ходатайство")
+    {"className":"FormStep", "label": "Ходатайство заявителя", "value": ""},
+#end
+
+#if($s9006_c2['arguments']['SUBSERVICE'] == "Ходатайство об освобождении")
+    {"className":"FormStep", "label": "Ходатайство о предоставлении права на освобождение от уплаты пошлины или на уплату пошлины в уменьшенном размере", "value": ""},
+#end
+
+#if($s9006_c2['arguments']['SUBSERVICE'] == "att_and_reg")
+    {"className":"FormStep", "label": "Пошлина", "value": ""},
+    #if($s2002_c1 == "general")
+        #if ($s2005_2006_c1 == "true")
+            #if ($s2005_2006_c2 == "true")
+                #if ($s2005_2006_c3 == "true")
+                    #if ($s2005_2006_c4 == "true")
+                        #if ($s2005_2006_c5 == "true")
+                            {"className":"FieldText", "label": "Стоимость", "value": "75 000 рублей"},
+                        #else
+                            {"className":"FieldText", "label": "Стоимость", "value": "60 000 рублей"},
+                        #end
+                    #else
+                        #if ($s2005_2006_c5 == "true")
+                            {"className":"FieldText", "label": "Стоимость", "value": "60 000 рублей"},
+                        #else
+                            {"className":"FieldText", "label": "Стоимость", "value": "45 000 рублей"},
+                        #end
+                    #end
+                #else
+                    #if ($s2005_2006_c4 == "true")
+                        #if ($s2005_2006_c5 == "true")
+                            {"className":"FieldText", "label": "Стоимость", "value": "60 000 рублей"},
+                        #else
+                            {"className":"FieldText", "label": "Стоимость", "value": "45 000 рублей"},
+                        #end
+                    #else
+                        #if ($s2005_2006_c5 == "true")
+                            {"className":"FieldText", "label": "Стоимость", "value": "45 000 рублей"},
+                        #else
+                            {"className":"FieldText", "label": "Стоимость", "value": "30 000 рублей"},
+                        #end
+                    #end
+                #end
+            #else
+                #if ($s2005_2006_c3 == "true")
+                    #if ($s2005_2006_c4 == "true")
+                        #if ($s2005_2006_c5 == "true")
+                            {"className":"FieldText", "label": "Стоимость", "value": "60 000 рублей"},
+                        #else
+                            {"className":"FieldText", "label": "Стоимость", "value": "45 000 рублей"},
+                        #end
+                    #else
+                        #if ($s2005_2006_c5 == "true")
+                            {"className":"FieldText", "label": "Стоимость", "value": "45 000 рублей"},
+                        #else
+                            {"className":"FieldText", "label": "Стоимость", "value": "30 000 рублей"},
+                        #end
+                    #end
+                #else
+                    #if ($s2005_2006_c4 == "true")
+                        #if ($s2005_2006_c5 == "true")
+                            {"className":"FieldText", "label": "Стоимость", "value": "45 000 рублей"},
+                        #else
+                            {"className":"FieldText", "label": "Стоимость", "value": "30 000 рублей"},
+                        #end
+                    #else
+                        #if ($s2005_2006_c5 == "true")
+                            {"className":"FieldText", "label": "Стоимость", "value": "30 000 рублей"},
+                        #else
+                            {"className":"FieldText", "label": "Стоимость", "value": "15 000 рублей"},
+                        #end
+                    #end
+                #end
+            #end
+        #else
+            #if ($s2005_2006_c2 == "true")
+                #if ($s2005_2006_c3 == "true")
+                    #if ($s2005_2006_c4 == "true")
+                        #if ($s2005_2006_c5 == "true")
+                            {"className":"FieldText", "label": "Стоимость", "value": "60 000 ₽"},
+                        #else
+                            {"className":"FieldText", "label": "Стоимость", "value": "45 000 ₽"},
+                        #end
+                    #else
+                        #if ($s2005_2006_c5 == "true")
+                            {"className":"FieldText", "label": "Стоимость", "value": "45 000 ₽"},
+                        #else
+                            {"className":"FieldText", "label": "Стоимость", "value": "30 000 ₽"},
+                        #end
+                    #end
+                #else
+                    #if ($s2005_2006_c4 == "true")
+                        #if ($s2005_2006_c5 == "true")
+                            {"className":"FieldText", "label": "Стоимость", "value": "45 000 ₽"},
+                        #else
+                            {"className":"FieldText", "label": "Стоимость", "value": "30 000 ₽"},
+                        #end
+                    #else
+                        #if ($s2005_2006_c5 == "true")
+                            {"className":"FieldText", "label": "Стоимость", "value": "30 000 ₽"},
+                        #else
+                            {"className":"FieldText", "label": "Стоимость", "value": "15 000 ₽"},
+                        #end
+                    #end
+                #end
+            #else
+                #if ($s2005_2006_c3 == "true")
+                    #if ($s2005_2006_c4 == "true")
+                        #if ($s2005_2006_c5 == "true")
+                            {"className":"FieldText", "label": "Стоимость", "value": "45 000 ₽"},
+                        #else
+                            {"className":"FieldText", "label": "Стоимость", "value": "30 000 ₽"},
+                        #end
+                    #else
+                        #if ($s2005_2006_c5 == "true")
+                            {"className":"FieldText", "label": "Стоимость", "value": "30 000 ₽"},
+                        #else
+                            {"className":"FieldText", "label": "Стоимость", "value": "15 000 ₽"},
+                        #end
+                    #end
+                #else
+                    #if ($s2005_2006_c4 == "true")
+                        #if ($s2005_2006_c5 == "true")
+                            {"className":"FieldText", "label": "Стоимость", "value": "30 000 ₽"},
+                        #else
+                            {"className":"FieldText", "label": "Стоимость", "value": "15 000 ₽"},
+                        #end
+                    #else
+                        #if ($s2005_2006_c5 == "true")
+                            {"className":"FieldText", "label": "Стоимость", "value": "15 000 ₽"},
+                        #else
+                            {"className":"FieldText", "label": "Стоимость", "value": "0 ₽"},
+                        #end
+                    #end
+                #end
+            #end
+        #end
+    #else
+        #if ($s2004_c1 == "confirm")
+        
+        #if ($s2005_2006_c1 == "true")
+            #if ($s2005_2006_c2 == "true")
+                #if ($s2005_2006_c3 == "true")
+                    #if ($s2005_2006_c4 == "true")
+                        #if ($s2005_2006_c5 == "true")
+                            {"className":"FieldText", "label": "Стоимость", "value": "75 000 рублей"},
+                        #else
+                            {"className":"FieldText", "label": "Стоимость", "value": "60 000 рублей"},
+                        #end
+                    #else
+                        #if ($s2005_2006_c5 == "true")
+                            {"className":"FieldText", "label": "Стоимость", "value": "60 000 рублей"},
+                        #else
+                            {"className":"FieldText", "label": "Стоимость", "value": "45 000 рублей"},
+                        #end
+                    #end
+                #else
+                    #if ($s2005_2006_c4 == "true")
+                        #if ($s2005_2006_c5 == "true")
+                            {"className":"FieldText", "label": "Стоимость", "value": "60 000 рублей"},
+                        #else
+                            {"className":"FieldText", "label": "Стоимость", "value": "45 000 рублей"},
+                        #end
+                    #else
+                        #if ($s2005_2006_c5 == "true")
+                            {"className":"FieldText", "label": "Стоимость", "value": "45 000 рублей"},
+                        #else
+                            {"className":"FieldText", "label": "Стоимость", "value": "30 000 рублей"},
+                        #end
+                    #end
+                #end
+            #else
+                #if ($s2005_2006_c3 == "true")
+                    #if ($s2005_2006_c4 == "true")
+                        #if ($s2005_2006_c5 == "true")
+                            {"className":"FieldText", "label": "Стоимость", "value": "60 000 рублей"},
+                        #else
+                            {"className":"FieldText", "label": "Стоимость", "value": "45 000 рублей"},
+                        #end
+                    #else
+                        #if ($s2005_2006_c5 == "true")
+                            {"className":"FieldText", "label": "Стоимость", "value": "45 000 рублей"},
+                        #else
+                            {"className":"FieldText", "label": "Стоимость", "value": "30 000 рублей"},
+                        #end
+                    #end
+                #else
+                    #if ($s2005_2006_c4 == "true")
+                        #if ($s2005_2006_c5 == "true")
+                            {"className":"FieldText", "label": "Стоимость", "value": "45 000 рублей"},
+                        #else
+                            {"className":"FieldText", "label": "Стоимость", "value": "30 000 рублей"},
+                        #end
+                    #else
+                        #if ($s2005_2006_c5 == "true")
+                            {"className":"FieldText", "label": "Стоимость", "value": "30 000 рублей"},
+                        #else
+                            {"className":"FieldText", "label": "Стоимость", "value": "15 000 рублей"},
+                        #end
+                    #end
+                #end
+            #end
+        #else
+            #if ($s2005_2006_c2 == "true")
+                #if ($s2005_2006_c3 == "true")
+                    #if ($s2005_2006_c4 == "true")
+                        #if ($s2005_2006_c5 == "true")
+                            {"className":"FieldText", "label": "Стоимость", "value": "60 000 рублей"},
+                        #else
+                            {"className":"FieldText", "label": "Стоимость", "value": "45 000 рублей"},
+                        #end
+                    #else
+                        #if ($s2005_2006_c5 == "true")
+                            {"className":"FieldText", "label": "Стоимость", "value": "45 000 рублей"},
+                        #else
+                            {"className":"FieldText", "label": "Стоимость", "value": "30 000 рублей"},
+                        #end
+                    #end
+                #else
+                    #if ($s2005_2006_c4 == "true")
+                        #if ($s2005_2006_c5 == "true")
+                            {"className":"FieldText", "label": "Стоимость", "value": "45 000 рублей"},
+                        #else
+                            {"className":"FieldText", "label": "Стоимость", "value": "30 000 рублей"},
+                        #end
+                    #else
+                        #if ($s2005_2006_c5 == "true")
+                            {"className":"FieldText", "label": "Стоимость", "value": "30 000 рублей"},
+                        #else
+                            {"className":"FieldText", "label": "Стоимость", "value": "15 000 рублей"},
+                        #end
+                    #end
+                #end
+            #else
+                #if ($s2005_2006_c3 == "true")
+                    #if ($s2005_2006_c4 == "true")
+                        #if ($s2005_2006_c5 == "true")
+                            {"className":"FieldText", "label": "Стоимость", "value": "45 000 рублей"},
+                        #else
+                            {"className":"FieldText", "label": "Стоимость", "value": "30 000 рублей"},
+                        #end
+                    #else
+                        #if ($s2005_2006_c5 == "true")
+                            {"className":"FieldText", "label": "Стоимость", "value": "30 000 рублей"},
+                        #else
+                            {"className":"FieldText", "label": "Стоимость", "value": "15 000 рублей"},
+                        #end
+                    #end
+                #else
+                    #if ($s2005_2006_c4 == "true")
+                        #if ($s2005_2006_c5 == "true")
+                            {"className":"FieldText", "label": "Стоимость", "value": "30 000 рублей"},
+                        #else
+                            {"className":"FieldText", "label": "Стоимость", "value": "15 000 рублей"},
+                        #end
+                    #else
+                        #if ($s2005_2006_c5 == "true")
+                            {"className":"FieldText", "label": "Стоимость", "value": "15 000 рублей"},
+                        #else
+                            {"className":"FieldText", "label": "Стоимость", "value": "0 рублей"},
+                        #end
+                    #end
+                #end
+            #end
+        #end
+
+        #else
+            #if ($s2003_c1 != "repeat_considering")
+        
+        #if ($s2011_11_c1 == "true")
+            #if ($s2011_11_c2 == "true")
+                #if ($s2011_11_c3 == "true")
+                    #if ($s2011_11_c4 == "true")
+                        #if ($s2011_11_c5 == "true")
+                            {"className":"FieldText", "label": "Стоимость", "value": "75 000 рублей"},
+                        #else
+                            {"className":"FieldText", "label": "Стоимость", "value": "60 000 рублей"},
+                        #end
+                    #else
+                        #if ($s2011_11_c5 == "true")
+                            {"className":"FieldText", "label": "Стоимость", "value": "60 000 рублей"},
+                        #else
+                            {"className":"FieldText", "label": "Стоимость", "value": "45 000 рублей"},
+                        #end
+                    #end
+                #else
+                    #if ($s2011_11_c4 == "true")
+                        #if ($s2011_11_c5 == "true")
+                            {"className":"FieldText", "label": "Стоимость", "value": "60 000 рублей"},
+                        #else
+                            {"className":"FieldText", "label": "Стоимость", "value": "45 000 рублей"},
+                        #end
+                    #else
+                        #if ($s2011_11_c5 == "true")
+                            {"className":"FieldText", "label": "Стоимость", "value": "45 000 рублей"},
+                        #else
+                            {"className":"FieldText", "label": "Стоимость", "value": "30 000 рублей"},
+                        #end
+                    #end
+                #end
+            #else
+                #if ($s2011_11_c3 == "true")
+                    #if ($s2011_11_c4 == "true")
+                        #if ($s2011_11_c5 == "true")
+                            {"className":"FieldText", "label": "Стоимость", "value": "60 000 рублей"},
+                        #else
+                            {"className":"FieldText", "label": "Стоимость", "value": "45 000 рублей"},
+                        #end
+                    #else
+                        #if ($s2011_11_c5 == "true")
+                            {"className":"FieldText", "label": "Стоимость", "value": "45 000 рублей"},
+                        #else
+                            {"className":"FieldText", "label": "Стоимость", "value": "30 000 рублей"},
+                        #end
+                    #end
+                #else
+                    #if ($s2011_11_c4 == "true")
+                        #if ($s2011_11_c5 == "true")
+                            {"className":"FieldText", "label": "Стоимость", "value": "45 000 рублей"},
+                        #else
+                            {"className":"FieldText", "label": "Стоимость", "value": "30 000 рублей"},
+                        #end
+                    #else
+                        #if ($s2011_11_c5 == "true")
+                            {"className":"FieldText", "label": "Стоимость", "value": "30 000 рублей"},
+                        #else
+                            {"className":"FieldText", "label": "Стоимость", "value": "15 000 рублей"},
+                        #end
+                    #end
+                #end
+            #end
+        #else
+            #if ($s2011_11_c2 == "true")
+                #if ($s2011_11_c3 == "true")
+                    #if ($s2011_11_c4 == "true")
+                        #if ($s2011_11_c5 == "true")
+                            {"className":"FieldText", "label": "Стоимость", "value": "60 000 рублей"},
+                        #else
+                            {"className":"FieldText", "label": "Стоимость", "value": "45 000 рублей"},
+                        #end
+                    #else
+                        #if ($s2011_11_c5 == "true")
+                            {"className":"FieldText", "label": "Стоимость", "value": "45 000 рублей"},
+                        #else
+                            {"className":"FieldText", "label": "Стоимость", "value": "30 000 рублей"},
+                        #end
+                    #end
+                #else
+                    #if ($s2011_11_c4 == "true")
+                        #if ($s2011_11_c5 == "true")
+                            {"className":"FieldText", "label": "Стоимость", "value": "45 000 рублей"},
+                        #else
+                            {"className":"FieldText", "label": "Стоимость", "value": "30 000 рублей"},
+                        #end
+                    #else
+                        #if ($s2011_11_c5 == "true")
+                            {"className":"FieldText", "label": "Стоимость", "value": "30 000 рублей"},
+                        #else
+                            {"className":"FieldText", "label": "Стоимость", "value": "15 000 рублей"},
+                        #end
+                    #end
+                #end
+            #else
+                #if ($s2011_11_c3 == "true")
+                    #if ($s2011_11_c4 == "true")
+                        #if ($s2011_11_c5 == "true")
+                            {"className":"FieldText", "label": "Стоимость", "value": "45 000 рублей"},
+                        #else
+                            {"className":"FieldText", "label": "Стоимость", "value": "30 000 рублей"},
+                        #end
+                    #else
+                        #if ($s2011_11_c5 == "true")
+                            {"className":"FieldText", "label": "Стоимость", "value": "30 000 рублей"},
+                        #else
+                            {"className":"FieldText", "label": "Стоимость", "value": "15 000 рублей"},
+                        #end
+                    #end
+                #else
+                    #if ($s2011_11_c4 == "true")
+                        #if ($s2011_11_c5 == "true")
+                            {"className":"FieldText", "label": "Стоимость", "value": "30 000 рублей"},
+                        #else
+                            {"className":"FieldText", "label": "Стоимость", "value": "15 000 рублей"},
+                        #end
+                    #else
+                        #if ($s2011_11_c5 == "true")
+                            {"className":"FieldText", "label": "Стоимость", "value": "15 000 рублей"},
+                        #else
+                            {"className":"FieldText", "label": "Стоимость", "value": "0 рублей"},
+                        #end
+                    #end
+                #end
+            #end
+        #end
+            #else
+                {"className":"FieldText", "label": "Стоимость", "value": "Бесплатно"},
+            #end
+        #end
+    #end
+#end
+
+
+#if($s9006_c2['arguments']['SUBSERVICE'] == "fix_errors")
+    {"className":"FormStep", "label": "Исправления", "value": ""},
+	#foreach ($val in $s1015_c1)
+	    #if($val['s1015_c1_c1']['id'] == 'reestr') 
+            {"className":"FieldText", "label": "Место ошибки", "value": "Реестр ПП"},
+        #end
+		#if($val['s1015_c1_c1']['id'] == 'vip') 
+            {"className":"FieldText", "label": "Место ошибки", "value": "Выписка из Реестра ПП"},
+        #end
+		#if($val['s1015_c1_c1']['id'] == 'uved')
+            {"className":"FieldText", "label": "Место ошибки", "value": "Уведомление"},
+        #end
+		#if($val['s1015_c1_c1']['id'] == 'prot')
+            {"className":"FieldText", "label": "Место ошибки", "value": "Протокол"},
+        #end
+		#if($val['s1015_c1_c1']['id'] == 'svid')
+            {"className":"FieldText", "label": "Место ошибки", "value": ""},
+        #end
+
+        #if($val['s1015_c1_c4']) 
+            {"className":"FieldText", "label": "Дата", "value": "$val['s1015_c1_c4'].substring(0,10)"},
+		#end
+
+		#if($val['s1015_c1_c2']) 
+            {"className":"FieldText", "label": "Номер уведомления", "value": "$val['s1015_c1_c2']"},
+		#end
+
+		#if($val['s1015_c1_c3']) 
+            {"className":"FieldText", "label": "Номер протокола", "value": "$val['s1015_c1_c3']"},
+		#end
+		{"className":"FieldText", "label": "Данные, которые следует исправить", "value": "$val['s1015_c1_c5']"},
+		{"className":"FieldText", "label": "Данные в исправленном виде", "value": "$val['s1015_c1_c6']"},
+	#end
+
+	#foreach ($val in $s1014_c1)
+	    #if($val['s1014_c1_c1']['id'] == 'reestr') 
+            {"className":"FieldText", "label": "Место ошибки", "value": "Реестр ПП"},
+        #end
+		#if($val['s1014_c1_c1']['id'] == 'vip') 
+            {"className":"FieldText", "label": "Место ошибки", "value": "Выписка из Реестра ПП"},
+        #end
+		#if($val['s1014_c1_c1']['id'] == 'uved')
+            {"className":"FieldText", "label": "Место ошибки", "value": "Уведомление"},
+        #end
+		#if($val['s1014_c1_c1']['id'] == 'prot')
+            {"className":"FieldText", "label": "Место ошибки", "value": "Протокол"},
+        #end
+		#if($val['s1014_c1_c1']['id'] == 'svid')
+            {"className":"FieldText", "label": "Место ошибки", "value": ""},
+        #end
+
+        #if($val['s1014_c1_c4']) 
+            {"className":"FieldText", "label": "Дата", "value": "$val['s1014_c1_c4'].substring(0,10)"},
+		#end
+
+		#if($val['s1014_c1_c2']) 
+            {"className":"FieldText", "label": "Номер уведомления", "value": "$val['s1014_c1_c2']"},
+		#end
+
+		#if($val['s1014_c1_c3']) 
+            {"className":"FieldText", "label": "Номер протокола", "value": "$val['s1014_c1_c3']"},
+		#end
+
+        {"className":"FormStep", "label": "Исправления", "value": ""},
+		{"className":"FieldText", "label": "Данные, которые следует исправить", "value": "$val['s1014_c1_c5']"},
+		{"className":"FieldText", "label": "Данные в исправленном виде", "value": "$val['s1014_c1_c6']"},
+	#end
+                
+    #if($s1016_c1 && $s1016_c1 != "")
+        {"className":"FormStep", "label": "Перечень прилагаемых документов", "value": ""},
+        {"className":"FieldText", "label": "Документ, подтверждающий полномочия представителя", "value": "  "}, 
+        #if($numberTool.toNumber($s1016_c1['totalCount']).intValue() > 0)
+            #foreach($val in $s1016_c1['uploads'][0]['value'])
+                {"className":"FieldText", "label": "Имя файла", "value": "$val['fileName']"},
+            #end
+        #end    
+    #end
+#elseif($s9006_c2['arguments']['SUBSERVICE'] == "change_reestr")
+    #if($s5012_c1 && $s5012_c1 != "")
+        {"className":"FormStep", "label": "Перечень прилагаемых документов", "value": ""},
+        {"className":"FieldText", "label": "Документы, подтверждающие изменения данных", "value": ""},    
+        #if($numberTool.toNumber($s5012_c1['totalCount']).intValue() > 0)
+            #foreach($val in $s5012_c1['uploads'][0]['value'])
+                {"className":"FieldText", "label": "Имя файла", "value": "$val['fileName']"},
+            #end
+        #end    
+    #end
+#elseif($s9006_c2['arguments']['SUBSERVICE'] == "get_extract")
+    #if($s0107_c1 && $s0107_c1 != "")
+        {"className":"FormStep", "label": "Перечень прилагаемых документов", "value": ""},
+        {"className":"FieldText", "label": "Документ, подтверждающий полномочия представителя", "value": "  "}, 
+        #if($numberTool.toNumber($s0107_c1['totalCount']).intValue() > 0)
+            #foreach($val in $s0107_c1['uploads'][0]['value'])
+                {"className":"FieldText", "label": "Имя файла", "value": "$val['fileName']"},
+            #end
+        #end    
+    #end
+#elseif($s9006_c2['arguments']['SUBSERVICE'] == "restore")
+    #if($s7011_c1 && $s7011_c1 != "")
+        {"className":"FormStep", "label": "Перечень прилагаемых документов", "value": ""},
+        {"className":"FieldText", "label": "Свидетельство, подтверждающее перемену имени", "value": "  "},  
+        #if($numberTool.toNumber($s7011_c1['totalCount']).intValue() > 0)
+            #foreach($val in $s7011_c1['uploads'][0]['value'])
+                {"className":"FieldText", "label": "Имя файла", "value": "$val['fileName']"},
+            #end
+        #end    
+    #end
+#elseif($s9006_c2['arguments']['SUBSERVICE'] == "att_and_reg")
+    {"className":"FormStep", "label": "Перечень прилагаемых документов", "value": ""},
+    #if($s2028_c1 && $s2028_c1 != "")
+        {"className":"FieldText", "label": "Сведения о трудовой деятельности, оформленные в установленном законодательством порядке", "value": "  "},   
+        #if($numberTool.toNumber($s2028_c1['totalCount']).intValue() > 0)
+            #foreach($val in $s2028_c1['uploads'][0]['value'])
+                {"className":"FieldText", "label": "Имя файла", "value": "$val['fileName']"},
+            #end
+        #end    
+    #end
+    #if($s2030_c1 && $s2030_c1 != "")
+        {"className":"FieldText", "label": "Рекомендация патентного поверенного", "value": "  "},   
+        #if($numberTool.toNumber($s2030_c1['totalCount']).intValue() > 0)
+            #foreach($val in $s2030_c1['uploads'][0]['value'])
+                {"className":"FieldText", "label": "Имя файла", "value": "$val['fileName']"},
+            #end
+        #end    
+    #end
+    #if($s2032_c1 && $s2032_c1 != "")
+        {"className":"FormStep", "label": "Документ об образовании", "value": ""},   
+        #if($numberTool.toNumber($s2032_c1['totalCount']).intValue() > 0)
+            #foreach($val in $s2032_c1['uploads'][0]['value'])
+                {"className":"FieldText", "label": "Имя файла", "value": "$val['fileName']"},
+            #end
+        #end    
+    #end
+    #if($s2034 && $s2034 != "")
+        {"className":"FieldText", "label": "Дополнительные документы", "value": "  "},  
+        #if($numberTool.toNumber($s2034['totalCount']).intValue() > 0)
+            #foreach($val in $s2034['uploads'][0]['value'])
+                {"className":"FieldText", "label": "Имя файла", "value": "$val['fileName']"},
+            #end
+        #end    
+    #end
+    #elseif($s9006_c2['arguments']['SUBSERVICE'] == "exclude_reestr")
+    #if($s4007_c1 && $s4007_c1 != "")
+        {"className":"FormStep", "label": "Перечень прилагаемых документов", "value": ""},
+        {"className":"FieldText", "label": "Свидетельство, подтверждающее перемену имени", "value": "  "},  
+        #if($numberTool.toNumber($s4007_c1['totalCount']).intValue() > 0)
+            #foreach($val in $s4007_c1['uploads'][0]['value'])
+                {"className":"FieldText", "label": "Имя файла", "value": "$val['fileName']"},
+            #end
+        #end    
+    #end
+#end
+
+
+{"className":"FormStep", "label": "Подтверждаю", "value": ""},
+    {"className":"FieldText", "label": "", "value": "Заявителю известно, что в соответствии с пунктом 4 части 1 статьи 6 Федерального закона от 27 июля 2006 г. № 152-ФЗ «О персональных данных» (Собрание законодательства Российской Федерации, 2006, № 31, ст. 3451; 2020, № 17, ст. 2701) (далее – Федеральный закон «О персональных данных») Федеральная служба по интеллектуальной собственности осуществляет обработку персональных данных субъектов персональных данных, указанных в заявлении, в целях и объеме, необходимых для предоставления государственной услуги. Заявитель подтверждает наличие согласия других субъектов персональных данных, указанных в заявлении (за исключением согласия представителя), на обработку их персональных данных, приведенных в настоящем заявлении, в Федеральной службе по интеллектуальной собственности в связи с предоставлением государственной услуги. Согласия оформлены в соответствии со статьей 9 Федерального закона «О персональных данных»."},
+    {"className":"FieldText", "label": "", "value": "Заявитель подтверждает достоверность информации, приведенной в настоящем заявлении"},
+
+{"className":"FormStep", "label": "Содержание заявления", "value": ""},
+
+
+
+#if($s9006_c2['arguments']['SUBSERVICE'] == "att_and_reg")
+    #if($s2002_c1 != 'general')
+        #if ($s2004_c1 == "confirm")
+            {"className":"FieldText", "label": "Ранее поданное заявление и прилагаемые к нему документы полные и актуальные", "value": "Да, подтверждаю"},
+        #else
+            {"className":"FieldText", "label": "Ранее поданное заявление и прилагаемые к нему документы полные и актуальные", "value": "Нет"},
+        #end
+    #end
+
+
+    {"className":"FieldText", "label": "Адресант", "value": "Физическое лицо"},
+    {"className":"FieldText", "label": "ФИО", "value": "$s2012_c1['storedValues']['lastName'] $s2012_c1['storedValues']['firstName'] $s2012_c1['storedValues']['middleName']"},
+    {"className":"FieldText", "label": "Адрес", "value": "$s2015_c1['address']['fullAddress']"},
+    #if ($s2005_c1)
+        #if ($s2005_c1 == "first_time")
+            {"className":"FieldText", "label": "Вы являетесь патентным поверенным", "value": "Нет"},
+        #else
+            {"className":"FieldText", "label": "Вы являетесь патентным поверенным", "value": "Да, хочу аттестоваться в порядке расширения области деятельности"},
+        #end
+    #end
+    
+    #if ($s2011_11_c1 == "true"  || $s2011_11_c2 == "true" || $s2011_11_c3 == "true" || $s2011_11_c4 == "true" || $s2011_11_c5 == "true")
+        {"className":"FieldText", "label": "$s2011_11_c1", "value": "Специализации, по которым хотите аттестоваться и зарегистрироваться"},
+        #if($s2011_11_c1 == "true")
+            {"className":"FieldText", "label": "Специализация", "value": "Изобретения и полезные модели"},
+        #end
+        #if($s2011_11_c2 == "true")
+            {"className":"FieldText", "label": "Специализация", "value": "Промышленные образцы"},
+        #end
+        #if($s2011_11_c3 == "true")
+            {"className":"FieldText", "label": "Специализация", "value": "Товарные знаки и знаки обслуживания"},
+        #end
+        #if($s2011_11_c4 == "true")
+            {"className":"FieldText", "label": "Специализация", "value": "Географические указания и наименования мест происхождения товаров"},
+        #end
+        #if($s2011_11_c5 == "true")
+            {"className":"FieldText", "label": "Специализация", "value": "Программы для ЭВМ, базы данных, топологии интегральных микросхем"},
+        #end
+    #end
+    #if ($s2019_c1 == "true"  || $s2019_c2 == "true" || $s2019_c3 == "true" || $s2019_c4 == "true" || $s2019_c5 == "true")
+        {"className":"FieldText", "label": "", "value": "Специализации, по которым хотите аттестоваться и зарегистрироваться"},
+        #if($s2019_c1 == "true")
+            {"className":"FieldText", "label": "Специализация", "value": "Изобретения и полезные модели"},
+        #end
+        #if($s2019_c2 == "true")
+            {"className":"FieldText", "label": "Специализация", "value": "Промышленные образцы"},
+        #end
+        #if($s2019_c3 == "true")
+            {"className":"FieldText", "label": "Специализация", "value": "Товарные знаки и знаки обслуживания"},
+        #end
+        #if($s2019_c4 == "true")
+            {"className":"FieldText", "label": "Специализация", "value": "Географические указания и наименования мест происхождения товаров"},
+        #end
+        #if($s2019_c5 == "true")
+            {"className":"FieldText", "label": "Специализация", "value": "Программы для ЭВМ, базы данных, топологии интегральных микросхем"},
+        #end
+    #end
+    #if ($s2005_2006_c1 != "true"  || $s2005_2006_c2 == "true" || $s2005_2006_c3 == "true" || $s2005_2006_c4 == "true" || $s2005_2006_c5 == "true")
+        {"className":"FieldText", "label": "", "value": "Специализации, по которым хотите аттестоваться и зарегистрироваться"},
+        #if($s2005_2006_c1 == "true")
+            {"className":"FieldText", "label": "Специализация", "value": "Изобретения и полезные модели"},
+        #end
+        #if($s2005_2006_c2 == "true")
+            {"className":"FieldText", "label": "Специализация", "value": "Промышленные образцы"},
+        #end
+        #if($s2005_2006_c3 == "true")
+            {"className":"FieldText", "label": "Специализация", "value": "Товарные знаки и знаки обслуживания"},
+        #end
+        #if($s2005_2006_c4 == "true")
+            {"className":"FieldText", "label": "Специализация", "value": "Географические указания и наименования мест происхождения товаров"},
+        #end
+        #if($s2005_2006_c5 == "true")
+            {"className":"FieldText", "label": "Специализация", "value": "Программы для ЭВМ, базы данных, топологии интегральных микросхем"},
+        #end
+    #end
+
+    #if ($s2006_c1)
+        #if ($s2006_c1 == "russia")
+            #if ($s2007_c1 == "after_1992")
+                {"className":"FieldText", "label": "Документ о высшем образовании получен", "value": "В России после 1992 года"},
+            #else
+                {"className":"FieldText", "label": "Документ о высшем образовании получен", "value": "В России до 1992 года"},
+            #end
+        #else
+            {"className":"FieldText", "label": "Документ о высшем образовании получен", "value": "За рубежом"},
+        #end
+    #end
+
+    #if ($s2008_c1)
+        #if ($s2008_c1 == "more_than_4")
+            {"className":"FieldText", "label": "Опыт работы:", "value": "Не менее 4 лет с даты получения высшего образования"},
+        #else
+            {"className":"FieldText", "label": "Опыт работы:", "value": "Не менее 2 лет, включая прохождение стажировки не менее 6 месяцев, с даты получения высшего образования"},
+        #end
+    #end
+
+    #if ($s2009_c1)
+        #if ($s2009_c1 == "plan_to")
+            {"className":"FieldText", "label": "Вы осуществляете профессиональную деятельность", "value": "Самостоятельно"},
+        #else
+            {"className":"FieldText", "label": "Вы осуществляете профессиональную деятельность", "value": "По трудовому договору"},
+        #end
+    #end
+
+    #if ($s2005_2_c1)
+        #if ($s2005_2_c1 == "first_time")
+            {"className":"FieldText", "label": "Вы являетесь патентным поверенным", "value": "Нет"},
+        #else
+            {"className":"FieldText", "label": "Вы являетесь патентным поверенным", "value": "Да, хочу аттестоваться в порядке расширения области деятельности"},
+        #end
+    #end
+
+	#if($s2021_c1)
+        {"className":"FieldText", "label": "", "value": "Данные предыдущего заявления об аттестации и регистрации в качестве патентного поверенного"},
+		{"className":"FieldText", "label": "Дата", "value": "$s2021_c1.substring(0,10)"},
+        {"className":"FieldText", "label": "Портальный номер заявления", "value": "$s2021_c2"},
+	#end
+
+	#if($s2022_c1)
+        {"className":"FormStep", "label": "Сведения о документе об образовании", "value": ""},
+		{"className":"FieldText", "label": "Название образовательного учреждения", "value": "$s2022_c1"},
+		{"className":"FieldText", "label": "Серия диплома", "value": "$s2022_c2"},
+		{"className":"FieldText", "label": "Номер диплома", "value": "$s2022_c3"},
+        {"className":"FieldText", "label": "Дата выдачи", "value": "$s2022_c4.substring(0,10)"},
+	#end
+
+    #if($s2024_c1 || $s2023_c1 || $s2026_c1)
+        {"className":"FormStep", "label": "Сведения об опыте работы", "value": ""},
+		#if($s2024_c1)
+			{"className":"FieldText", "label": "Полное имя", "value": "$s2024_c1"},
+			{"className":"FieldText", "label": "Номер сотрудника", "value": "$s2024_c2"},
+			{"className":"FieldText", "label": "Дата начала", "value": "$s2024_c3.substring(0,10)"},
+			{"className":"FieldText", "label": "Дата окончания", "value": "$s2024_c4.substring(0,10)"},
+			{"className":"FieldText", "label": "Дата начала регистрации", "value": "$s2024_c5.substring(0,10)"},
+			{"className":"FieldText", "label": "Дата окончания регистрации", "value": "$s2024_c2"},
+			#if($s2023_c1_11)
+                {"className":"FieldText", "label": "Описание деятельности", "value": "$s2023_c1_11"},
+            #end
+		#end
+		
+        #if($s2026_c1)
+			#if($s2026_c1['id'] == 'org')
+				{"className":"FieldText", "label": "Наименование организации работодателя", "value": "$s2026_c5"},
+			#else
+                #if ($val['s2023_c1_1']['id'] != "fiz")
+				    {"className":"FieldText", "label": "ФИО работодателя", "value": "$s2026_c2 $s2026_c3 $s2026_c4"},
+                #end
+			#end
+		#end
+	#end
+#end
+
+#if($s2020_c1)
+    {"className":"FieldText", "label": "", "value": "Реквизиты решения Апелляционной комиссии Роспатента"},
+    {"className":"FieldText", "label": "Номер", "value": "$s2020_c1"},
+    #if($s2020_c2)
+        {"className":"FieldText", "label": "Дата регистрации", "value": "$s2020_c2.substring(0,10)"},
+    #end
+#end
+#if($s2023_c1)
+    #foreach ($val in $s2023_c1)
+        {"className":"FieldText", "label": "", "value": "Сведения об опыте работы"},
+            #if ($val['s2023_c1_1']['id'])
+                #if ($val['s2023_c1_1']['id'] == "fiz")
+                    {"className":"FieldText", "label": "Работодатель", "value": "Физическое лицо"},
+                #elseif ($val['s2023_c1_1']['id'] == "ip")
+                    {"className":"FieldText", "label": "Работодатель", "value": "Индивидуальный предприниматель"},
+                #else
+                    {"className":"FieldText", "label": "Работодатель", "value": "Организация"},
+                #end
+            #end
+            #if($val['s2023_c1_1']['id'] == 'fiz')
+                {"className":"FieldText", "label": "ФИО", "value": "$val['s2023_c1_3'] $val['s2023_c1_4'] $val['s2023_c1_5']"},
+            #elseif($val['s2023_c1_1']['id'] == 'org')
+                {"className":"FieldText", "label": "Название", "value": "$val['s2023_c1_2']"},
+            #else
+                {"className":"FieldText", "label": "ФИО", "value": "$val['s2023_c1_3'] $val['s2023_c1_4'] $val['s2023_c1_5']"},
+            #end
+            #if($val['s2023_c1_7'])
+                {"className":"FieldText", "label": "ИНН", "value": "$val['s2023_c1_7']"},
+            #end
+	        #if($val['s2023_c1_6']) 
+                {"className":"FieldText", "label": "ИНН", "value": "$val['s2023_c1_6']"},
+            #end
+            #if($val['s2023_c1_11'])
+                {"className":"FieldText", "label": "Описание деятельности", "value": "$val['s2023_c1_11']"},
+            #end
+            #if ($val['s2023_c1_10'] == 'true')
+                {"className":"FieldText", "label": "Работаете сейчас", "value": "Да"},
+            #else
+                {"className":"FieldText", "label": "Работаете сейчас", "value": "Нет"},
+            #end
+            {"className":"FieldText", "label": "Дата начала работы", "value": "$val['s2023_c1_8'].substring(0,10)"},
+            #if($val['s2023_c1_9'])
+                {"className":"FieldText", "label": "Дата окончания работы", "value": "$val['s2023_c1_9'].substring(0,10)"},
+            #end
+            #if($s2050_c1 && $s2050_c1 != '')
+			    #foreach ($val in $s2050_c1)
+                    {"className":"FieldText", "label": "", "value": "Сведения о характере работ"},
+					{"className":"FieldText", "label": "Тип работы", "value": "$val['s2050_c1_1']"},
+						{"className":"FieldText", "label": "Дата начала", "value": "$val['s2050_c1_2'].substring(0,10)"},
+						#if($val['s2050_c1_3'])
+                            {"className":"FieldText", "label": "Дата окончания", "value": "$val['s2050_c1_3'].substring(0,10)"},
+                        #end
+                        #if ($val['s2050_c1_4'] == 'true')
+						    {"className":"FieldText", "label": "По настоящее время", "value": "Да"},
+                        #else
+                            {"className":"FieldText", "label": "По настоящее время", "value": "Нет"},
+                        #end
+					{"className":"FieldText", "label": "Объём работ", "value": "$val['s2050_c1_5']"},
+					{"className":"FieldText", "label": "Характер работ", "value": "$val['s2050_c1_6']"},
+			    #end
+			#end
+    #end
+#end
+
+
+
+#if ($s9006_c2['arguments']['SUBSERVICE'] == "change_reestr")
+    {"className":"FieldText", "label": "", "value": "Актуальные данные:"},
+    #if ($s5007)
+        {"className":"FieldText", "label": "Номер регистрации в Реестре патентных поверенных", "value": "$s5007['originalItem']['value']"},
+        {"className":"FieldText", "label": "Специализация", "value": "$s5007['originalItem']['attributeValues']['Specializaciya']"},
+        {"className":"FieldText", "label": "ФИО", "value": "$s5007['id']"},
+    #end
+    #if ($s5008_c1)
+        {"className":"FieldText", "label": "Адрес места жительства", "value": "$s5010_2_c1"},
+    #end
+    #if ($s5008_c2)
+        {"className":"FieldText", "label": "Адрес для переписки", "value": "$s5010_3_c1"},
+    #end
+
+    #if($s5008_c3_1 == 'true' || $s5008_c3_2 == 'true')
+        #if($s5010_4_2_c1) 
+            {"className":"FieldText", "label": "Телефон", "value": "$s5010_4_2_c1"},
+        #end
+    #end
+    #if($s5010_4_1_c1)
+        {"className":"FieldText", "label": "Факс", "value": "$s5010_4_1_c1"},
+    #end
+
+    #if ($s5008_c4)
+        {"className":"FieldText", "label": "ФИО", "value": "$s5010_1_c1 $s5010_1_c2 $s5010_1_c3"},
+    #end
+    #if ($s5008_c5)
+        {"className":"FieldText", "label": "Адрес электронной почты", "value": "$s5010_5_c1"},
+    #end
+    #if ($s5008_c6)
+        {"className":"FieldText", "label": "Адрес сайта", "value": "$s5010_6_c1"},
+    #end
+    #if ($s5008_c7)
+        {"className":"FieldText", "label": "", "value": "Языки, на которых осуществляется переписка"},
+        #foreach($val in $s5010_7_c1)
+            {"className":"FieldText", "label": "Язык", "value": "$val['s5010_7_c1_1']['text']"},
+        #end
+    #end
+    #if ($s5008_c8)
+		#if($s5010_8_c1)
+			#foreach($val in $s5010_8_c1)
+				#if($val['s5010_8_c1_1'])
+					{"className":"FieldText", "label": "Наименования общественных объединений и саморегулируемых организаций патентных поверенных, членом которых является патентный поверенный", "value": "$val['s5010_8_c1_1']"},
+				#end
+			#end
+		#end
+    #end
+    #if ($s5010_9_c1)
+        {"className":"FieldText", "label": "Способ осуществления профессиональной деятельности", "value": "$s5010_9_c1"},
+    #end
+    #if ($s5010_9_c2)
+        {"className":"FieldText", "label": "Наименование работодателя", "value": "$s5010_9_c2"},
+    #end
+#end
+
+
+#if ($s4005_c1)
+    {"className":"FieldText", "label": "Номер регистрации в Реестре патентных поверенных", "value": "$s4005_c1['originalItem']['value']"},
+    {"className":"FieldText", "label": "Специализация", "value": "$s4005_c1['originalItem']['attributeValues']['Specializaciya']"},
+    {"className":"FieldText", "label": "ФИО", "value": "$s4005_c1['id']"},
+#end
+
+
+#if ($s9006_c2['arguments']['SUBSERVICE'] == "exclude_reestr")
+    #if($s4006_c1['id'] == 'my_own_will') 
+        {"className":"FieldText", "label": "Причина", "value": "По собственному желанию"}, 
+    #end
+	#if($s4006_c1['id'] == 'move_another_service') 
+        {"className":"FieldText", "label": "Причина", "value": "Переход на государственную или муниципальную службу"},
+    #end
+	#if($s4006_c1['id'] == 'move_another_rospatent_organisation') 
+        {"className":"FieldText", "label": "Причина", "value": "Переход на работу в организацию, находящуюся в ведении Роспатента"},
+    #end
+	#if($s4006_c1['id'] == 'court_decision') 
+        {"className":"FieldText", "label": "Причина", "value": "Решение суда об исключении из Реестра патентных поверенных "},
+    #end
+	#if($s4006_c1['id'] == 'citizenship_loss') 
+        {"className":"FieldText", "label": "Причина", "value": "Утрата гражданства РФ"}, 
+    #end
+	#if($s4006_c1['id'] == 'move_from_russia') 
+        {"className":"FieldText", "label": "Причина", "value": "Выезд с территории РФ на постоянное место жительства"},
+    #end
+	#if($s4006_c1['id'] == 'became_incompetent') 
+        {"className":"FieldText", "label": "Причина", "value": "Признание в установленном законодательством РФ порядке недееспособным или ограниченно дееспособным"},
+    #end
+#end
+
+#if ($s7006_c1)
+    {"className":"FieldText", "label": "Номер регистрации в Реестре патентных поверенных", "value": "$s7006_c1['originalItem']['value']"},
+    {"className":"FieldText", "label": "Специализация", "value": "$s7006_c1['originalItem']['attributeValues']['Specializaciya']"},
+    {"className":"FieldText", "label": "ФИО", "value": "$s7006_c1['id']"},
+#end
+#if($s7007_3_c1)
+    {"className":"FieldText", "label": "Ваш сайт", "value": "$s7007_3_c1"},
+#end
+#if($s7008_c1)
+    {"className":"FieldText", "label": "", "value": "Сведения о языках, на которых вы осуществляете переписку"},
+	#foreach($val in $s7008_c1)
+        {"className":"FieldText", "label": "Язык", "value": "$val['s7008_c11']['text']"},
+	#end
+#end
+
+#if($s7009_c2)
+    {"className":"FieldText", "label": "Название работодателя", "value": "$s7009_c2"},
+    #if($s7009_c1['id'] == 'v1')
+        {"className":"FieldText", "label": "Осуществление профессиональной деятельности", "value": "самостоятельно"},
+    #else
+        {"className":"FieldText", "label": "Осуществление профессиональной деятельности", "value": "по трудовому договру"},
+    #end
+#end
+#if($s7010_c1)
+	#foreach($val in $s7010_c1)
+		#if($val['s7010_c11'])
+            {"className":"FieldText", "label": "Название работодателя", "value": "$val['s7010_c11']"},
+		#end
+	#end
+#end
+
+#if ($s0105_c1)
+    {"className":"FieldText", "label": "Номер регистрации в Реестре патентных поверенных", "value": "$s0105_c1['originalItem']['value']"},
+    {"className":"FieldText", "label": "Специализация", "value": "$s0105_c1['originalItem']['attributeValues']['Specializaciya']"},
+    {"className":"FieldText", "label": "ФИО", "value": "$s0105_c1['id']"},
+#end
+
+
+#if ($s1005_c1)
+    {"className":"FieldText", "label": "", "value": "Свдения о регистрации в реестре патентных поверенных"},
+    {"className":"FieldText", "label": "Номер регистрации в Реестре патентных поверенных", "value": "$s1005_c1['originalItem']['value']"},
+    {"className":"FieldText", "label": "Специализация", "value": "$s1005_c1['originalItem']['attributeValues']['Specializaciya']"},
+    {"className":"FieldText", "label": "ФИО", "value": "$s1005_c1['id']"},
+#end
+
+
+#if($s6026_c1)
+	#if($s6026_c4)
+		{"className":"FieldText", "label": "ИНН", "value": "$s6026_c4"},
+	#end
+	#if($s6026_c3)
+		{"className":"FieldText", "label": "ОГРН", "value": "$s6026_c3"},
+	#end
+	#if($s6026_c7)
+		{"className":"FieldText", "label": "КИО", "value": "$s6026_c7"},
+    #end
+	#if($s6026_c12)
+		{"className":"FieldText", "label": "ИНН", "value": "$s6026_c12"},
+	#end
+	#if($s6026_c13)
+		{"className":"FieldText", "label": "ОГРНИП", "value": "$s6026_c13"},
+	#end
+	#if($s6026_c11 && $s6026_c11['snils'])
+		{"className":"FieldText", "label": "СНИЛС", "value": "$s6026_c11['snils']"},
+	#end
+
+	#if($s6026_c1['id'] == 'fiz' || $s6026_c1['id'] == 'for_citizen')
+		{"className":"FieldText", "label": "ФИО", "value": "$s6026_c8 $s6026_c9 $s6026_c10"},
+	#elseif($s6026_c1['id'] == 'ip')
+		{"className":"FieldText", "label": "ФИО", "value": "$s6026_c8 $s6026_c9 $s6026_c10"},
+	#elseif($s6026_c1['id'] == 'rus_ur' || $s6026_c1['id'] == 'inorg')
+		{"className":"FieldText", "label": "Наименование", "value": "$s6026_c2"},
+	#end
+
+    #if($s6026_c14)
+		#if($s6026_c16)
+			{"className":"FieldText", "label": "Адрес", "value": "($s6026_c14['id']) $s6026_c14['text'], $s6026_c16"},
+		#else
+			{"className":"FieldText", "label": "Адрес", "value": "($s6026_c14['id']) $s6026_c14['text'], $s6026_c15['fullAddress']"},
+		#end
+    #elseif($s6026_c14_2)
+        #if($s6026_c16)
+            {"className":"FieldText", "label": "Страна", "value": "($s6026_c14_2['id']) $s6026_c14_2['text'], $s6026_c16"},
+        #else
+            {"className":"FieldText", "label": "Страна", "value": "($s6026_c14_2['id']) $s6026_c14_2['text'], $s6026_c15['fullAddress']"},
+        #end
+    #else
+        #if($s6026_c16)
+            {"className":"FieldText", "label": "Адрес", "value": "(RUS) Россия, $s6026_c16"},
+        #else
+            {"className":"FieldText", "label": "Полный адрес", "value": "(RUS) Россия, $s6026_c15['fullAddress']"},
+        #end
+    #end
+#end
+
+#if($s6029_c1)
+    {"className":"FieldText", "label": "", "value": "Причина исключения из Реестра"},
+    #if($s6029_c1['id'] == 'move_another_service') 
+        {"className":"FieldText", "label": "Причина", "value": "Переход на государственную или муниципальную службу"},
+    #end
+    #if($s6029_c1['id'] == 'move_another_rospatent_organisation') 
+        {"className":"FieldText", "label": "Причина", "value": "Переход на работу в организацию, находящуюся в ведении Роспатента"},
+    #end
+    #if($s6029_c1['id'] == 'court_decision') 
+        {"className":"FieldText", "label": "Причина", "value": "Решение суда об исключении из Реестра патентных поверенных"},
+    #end
+    #if($s6029_c1['id'] == 'citizenship_loss') 
+        {"className":"FieldText", "label": "Причина", "value": "Утрата гражданства РФ"},
+    #end
+    #if($s6029_c1['id'] == 'move_from_russia') 
+        {"className":"FieldText", "label": "Причина", "value": "Выезд с территории РФ на постоянное  место жительства"},
+    #end
+    #if($s6029_c1['id'] == 'dead_or_missing') 
+        {"className":"FieldText", "label": "Причина", "value": "Смерть или объявление безвестно пропавшим"},
+    #end
+    #if($s6029_c1['id'] == 'became_incompetent') 
+        {"className":"FieldText", "label": "Причина", "value": "Признание в установленном  законодательством РФ порядке недееспособным или ограниченно дееспособным"},
+    #end
+    {"className":"FieldText", "label": "Номер регистрации в Реестре патентных поверенных", "value": "$s6027_c1['originalItem']['value']"},
+    {"className":"FieldText", "label": "Специализация", "value": "$s6027_c1['originalItem']['attributeValues']['Specializaciya']"},
+    {"className":"FieldText", "label": "ФИО", "value": "$s6027_c1['id']"},
+#end
+
+#if($s1013_c1)
+    {"className":"FieldText", "label": "", "value": "Получатель услуги"},
+	#if($s1013_c4)
+		{"className":"FieldText", "label": "ИНН", "value": "$s1013_c4"},
+	#end
+
+	#if($s1013_c3)
+		{"className":"FieldText", "label": "ОГРН", "value": "$s1013_c3"},
+	#end
+
+	#if($s1013_c7)
+		{"className":"FieldText", "label": "КИО", "value": "$s1013_c7"},
+	#end
+
+	#if($s1013_c12)
+		{"className":"FieldText", "label": "ИНН", "value": "$s1013_c12"},
+	#end
+
+    #if($s1013_c13)
+		{"className":"FieldText", "label": "ОГРНИП", "value": "$s1013_c13"},
+	#end
+
+	#if($s1013_c11 && $s1013_c11['snils'])
+		{"className":"FieldText", "label": "СНИЛС", "value": "$s1013_c11['snils']"},
+	#end
+	
+    #if($s1013_c1['id'] == 'fiz' || $s1013_c1['id'] == 'for_citizen')
+		{"className":"FieldText", "label": "Полное имя", "value": "$s1013_c8 $s1013_c9 $s1013_c10"},
+	#elseif($s1013_c1['id'] == 'ip')
+		{"className":"FieldText", "label": "Полное имя", "value": "$s1013_c8 $s1013_c9 $s1013_c10"},
+	#elseif($s1013_c1['id'] == 'rus_ur' || $s1013_c1['id'] == 'inorg')
+		{"className":"FieldText", "label": "Полное наименование", "value": "$s1013_c2"},
+    #end
+    
+    #if($s1013_c14)
+		#if($s1013_c16)
+			{"className":"FieldText", "label": "Адрес", "value": "$s1013_c14['id']) $s1013_c14['text'], $s1013_c16"},
+		#else
+			{"className":"FieldText", "label": "Адрес", "value": "($s1013_c14['id']) $s1013_c14['text'], $s1013_c15['fullAddress']"},
+		#end
+    #elseif($s1013_c14_2)
+        #if($s1013_c16)
+            {"className":"FieldText", "label": "Адрес", "value": "($s1013_c14_2['id']) $s1013_c14_2['text'], $s1013_c16"},
+        #else
+            {"className":"FieldText", "label": "Адрес", "value": "($s1013_c14_2['id']) $s1013_c14_2['text'], $s1013_c15['fullAddress']"},
+        #end
+    #else
+        #if($s1013_c16)
+            {"className":"FieldText", "label": "Адрес", "value": "(RUS) Россия, $s1013_c16"},
+        #else
+            {"className":"FieldText", "label": "Адрес", "value": "(RUS) Россия, $s1013_c15['fullAddress']"},
+        #end
+    #end
+#end
+{}
+]

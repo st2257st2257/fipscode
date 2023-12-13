@@ -148,7 +148,6 @@
                 {"className":"FieldText", "label": "Отчество", "value": "$s2c2['storedValues']['middleName']"},
             #end
         #else
-            {"className":"FieldText", "label": "Ошибка", "value": "Определение услуги"},
         #end
 
 
@@ -232,6 +231,7 @@
                     {"className":"FieldText", "label": "ФИО", "value": "$s1008_c1['storedValues']['lastName'] $s1008_c1['storedValues']['firstName'] $s1008_c1['storedValues']['middleName']"},
                     {"className":"FieldText", "label": "Почтовый адрес", "value": "$s1952_c1['address']['fullAddress']"},
                 #else
+                    {"className":"FieldText", "label": "ФИО", "value": "$s1004_c1['storedValues']['lastName'] $s1004_c1['storedValues']['firstName'] $s1004_c1['storedValues']['middleName']"},
                     {"className":"FieldText", "label": "Почтовый адрес", "value": "$s1952_c1['address']['fullAddress']"},
                 #end
 
@@ -241,6 +241,10 @@
                 {"className":"FieldText", "label": "Номер телефона", "value": "$s1950_c1"},
                 {"className":"FieldText", "label": "Электронная почта", "value": "$s1951_c1"},
             #else
+                #if ($s1008_c1['storedValues']['firstName'])
+                    {"className":"FieldText", "label": "ФИО", "value": "$s1008_c1['storedValues']['lastName'] $s1008_c1['storedValues']['firstName'] $s1008_c1['storedValues']['middleName']"},
+                #end
+                {"className":"FieldText", "label": "ФИО", "value": "$s1004_c1['storedValues']['lastName'] $s1004_c1['storedValues']['firstName'] $s1004_c1['storedValues']['middleName']"},
                 {"className":"FieldText", "label": "Почтовый адрес", "value": "$s1052_c1['address']['fullAddress']"},
                 #if($s1052_c1['address']['additionalArea'] != "")
                     {"className":"FieldText", "label": "Cубъект Российской Федерации", "value": "$s1052_c1['address']['additionalArea']"},
@@ -424,25 +428,44 @@
         #end  
     #elseif(!$orgType)
         #if($s9006_c2['arguments']['SUBSERVICE'] == "fix_errors")
-            #if($s1001_2_c2['storedValues']['ACCOUNT_TYPE'] != "patpov")
-                {"className":"FieldText", "label": "Фамилия", "value": "$s1004_c1['storedValues']['lastName']"},
-                {"className":"FieldText", "label": "Имя", "value": "$s1004_c1['storedValues']['firstName']"},
-                {"className":"FieldText", "label": "Отчество", "value": "$s1004_c1['storedValues']['middleName']"},
-                {"className":"FieldText", "label": "СНИЛС", "value": "$s1004_c1['storedValues']['snils']"},
-                #if($s1004_c1 && $s1004_c1 !="")
+            #if($s1001_2_c2['storedValues']['ACCOUNT_TYPE'] != "patpov" && $s1001_2_c2['storedValues']['ACCOUNT_TYPE'] != "third")
+                #if($s1004_c1['storedValues']['lastName'])
+                    {"className":"FieldText", "label": "Фамилия", "value": "$s1004_c1['storedValues']['lastName']"},
+                    {"className":"FieldText", "label": "Имя", "value": "$s1004_c1['storedValues']['firstName']"},
+                    {"className":"FieldText", "label": "Отчество", "value": "$s1004_c1['storedValues']['middleName']"},
+                    {"className":"FieldText", "label": "СНИЛС", "value": "$s1004_c1['storedValues']['snils']"},
+                    #if($s1004_c1 && $s1004_c1 !="")
+                        {"className":"FieldText", "label": "Дата рождения", "value": "$s1004_c1['storedValues']['birthDate']"},
+                    #end
+                    {"className":"FormStep", "label": "Документ удостоверяющий личность:", "value": ""},
+                    {"className":"FieldText", "label": "Тип документа", "value": "Паспорт гражданина РФ"},
+                    {"className":"FieldText", "label": "Серия", "value": "$s1004_c1['storedValues']['rfPasportSeries']"},
+                    {"className":"FieldText", "label": "Номер", "value": "$s1004_c1['storedValues']['rfPasportNumber']"},
+                    {"className":"FieldText", "label": "Дата выдачи", "value": "$s1004_c1['storedValues']['rfPasportIssueDate']"},
+                    {"className":"FieldText", "label": "Кем выдан", "value": "$s1004_c1['storedValues']['rfPasportIssuedBy']"},
+                    #if ($s1004_c1['storedValues']['rfPasportIssuedById'])
+                        {"className":"FieldText", "label": "Код подразделения", "value": "$s1004_c1['storedValues']['rfPasportIssuedById']"},
+                    #end
                     {"className":"FieldText", "label": "Дата рождения", "value": "$s1004_c1['storedValues']['birthDate']"},
+                #elseif($s1008_c1['storedValues']['lastName'])
+                    {"className":"FieldText", "label": "Фамилия", "value": "$s1008_c1['storedValues']['lastName']"},
+                    {"className":"FieldText", "label": "Имя", "value": "$s1008_c1['storedValues']['firstName']"},
+                    {"className":"FieldText", "label": "СНИЛС", "value": "$s1008_c1['storedValues']['snils']"},
+                    #if($s1008_c1 && $s1008_c1 !="")
+                        {"className":"FieldText", "label": "Дата рождения", "value": "$s1008_c1['storedValues']['birthDate']"},
+                    #end
+                    {"className":"FormStep", "label": "Документ удостоверяющий личность:", "value": ""},
+                    {"className":"FieldText", "label": "Тип документа", "value": "Паспорт гражданина РФ"},
+                    {"className":"FieldText", "label": "Серия", "value": "$s1008_c1['storedValues']['rfPasportSeries']"},
+                    {"className":"FieldText", "label": "Номер", "value": "$s1008_c1['storedValues']['rfPasportNumber']"},
+                    {"className":"FieldText", "label": "Дата выдачи", "value": "$s1008_c1['storedValues']['rfPasportIssueDate']"},
+                    {"className":"FieldText", "label": "Кем выдан", "value": "$s1008_c1['storedValues']['rfPasportIssuedBy']"},
+                    #if ($s1008_c1['storedValues']['rfPasportIssuedById'])
+                        {"className":"FieldText", "label": "Код подразделения", "value": "$s1008_c1['storedValues']['rfPasportIssuedById']"},
+                    #end
+                    {"className":"FieldText", "label": "Дата рождения", "value": "$s1008_c1['storedValues']['birthDate']"},
                 #end
-                {"className":"FormStep", "label": "Документ удостоверяющий личность:", "value": ""},
-                {"className":"FieldText", "label": "Тип документа", "value": "Паспорт гражданина РФ"},
-                {"className":"FieldText", "label": "Серия", "value": "$s1004_c1['storedValues']['rfPasportSeries']"},
-                {"className":"FieldText", "label": "Номер", "value": "$s1004_c1['storedValues']['rfPasportNumber']"},
-                {"className":"FieldText", "label": "Дата выдачи", "value": "$s1004_c1['storedValues']['rfPasportIssueDate']"},
-                {"className":"FieldText", "label": "Кем выдан", "value": "$s1004_c1['storedValues']['rfPasportIssuedBy']"},
-                #if ($s1004_c1['storedValues']['rfPasportIssuedById'])
-                    {"className":"FieldText", "label": "Код подразделения", "value": "$s1004_c1['storedValues']['rfPasportIssuedById']"},
-                #end
-                {"className":"FieldText", "label": "Дата рождения", "value": "$s1004_c1['storedValues']['birthDate']"},
-            #elseif($s1001_2_c2['storedValues']['ACCOUNT_TYPE'] == "patpov")
+            #elseif($s1001_2_c2['storedValues']['ACCOUNT_TYPE'] == "applicant" || $s1001_2_c2['storedValues']['ACCOUNT_TYPE'] == "third")
                 {"className":"FieldText", "label": "Фамилия", "value": "$s1008_c1['storedValues']['lastName']"},
                 {"className":"FieldText", "label": "Имя", "value": "$s1008_c1['storedValues']['firstName']"},
                 {"className":"FieldText", "label": "СНИЛС", "value": "$s1008_c1['storedValues']['snils']"},
@@ -575,11 +598,6 @@
     {"className":"FieldText", "label": "Номер регистрации в Реестре патентных поверенных", "value": "$s5007['originalItem']['value']"},
     {"className":"FieldText", "label": "Специализация", "value": "$s5007['originalItem']['attributeValues']['Specializaciya']"},
     {"className":"FieldText", "label": "ФИО", "value": "$s5007['id']"},
-#end
-#if ($s0105_c1)
-    {"className":"FieldText", "label": "Номер регистрации в Реестре патентных поверенных", "value": "$s0105_c1['originalItem']['value']"},
-    {"className":"FieldText", "label": "Специализация", "value": "$s0105_c1['originalItem']['attributeValues']['Specializaciya']"},
-    {"className":"FieldText", "label": "ФИО", "value": "$s0105_c1['id']"},
 #end
 #if ($s1005_c1)
     #if($s9006_c3['arguments']['WHOAREYOU'] == "applicant")
@@ -1179,14 +1197,6 @@
         #end
     #end
 
-    #if ($s2009_c1)
-        #if ($s2009_c1 == "plan_to")
-            {"className":"FieldText", "label": "Вы осуществляете профессиональную деятельность", "value": "Самостоятельно"},
-        #else
-            {"className":"FieldText", "label": "Вы осуществляете профессиональную деятельность", "value": "По трудовому договору"},
-        #end
-    #end
-
     #if ($s2005_2_c1)
         #if ($s2005_2_c1 == "first_time")
             {"className":"FieldText", "label": "Вы являетесь патентным поверенным", "value": "Нет"},
@@ -1233,6 +1243,14 @@
         #end
     #end
     
+    #if ($s2009_c1)
+        #if ($s2009_c1 == "plan_to")
+            {"className":"FieldText", "label": "Вы осуществляете профессиональную деятельность", "value": "Самостоятельно"},
+        #else
+            {"className":"FieldText", "label": "Вы осуществляете профессиональную деятельность", "value": "По трудовому договору"},
+        #end
+    #end
+
 		#if($s2024_c1)
 			{"className":"FieldText", "label": "Полное имя", "value": "$s2024_c1"},
 			{"className":"FieldText", "label": "Номер сотрудника", "value": "$s2024_c2"},
@@ -1360,7 +1378,7 @@
 		#end
     #end
     #if ($s5010_9_c1)
-        {"className":"FieldText", "label": "Способ осуществления профессиональной деятельности", "value": "$s5010_9_c1"},
+        {"className":"FieldText", "label": "Способ осуществления профессиональной деятельности", "value": "$s5010_9_c1["text"]"},
     #end
     #if ($s5010_9_c2)
         {"className":"FieldText", "label": "Наименование работодателя", "value": "$s5010_9_c2"},
@@ -1621,6 +1639,12 @@
 		{"className":"FieldText", "label": "Данные, которые следует исправить", "value": "$val['s1014_c1_c5']"},
 		{"className":"FieldText", "label": "Данные в исправленном виде", "value": "$val['s1014_c1_c6']"},
 	#end
+#end
+
+#if ($s0105_c1)
+    {"className":"FieldText", "label": "Номер регистрации в Реестре патентных поверенных", "value": "$s0105_c1['originalItem']['value']"},
+    {"className":"FieldText", "label": "Специализация", "value": "$s0105_c1['originalItem']['attributeValues']['Specializaciya']"},
+    {"className":"FieldText", "label": "ФИО", "value": "$s0105_c1['id']"},
 #end
 {}
 ]

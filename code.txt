@@ -125,9 +125,14 @@
             #end
         #elseif ($s9006_c2['arguments']['SUBSERVICE'] == "att_and_reg")
             #if(!$orgType)
-                {"className":"FieldText", "label": "Фамилия", "value": "$s2012_c1['storedValues']['lastName']"},
-                {"className":"FieldText", "label": "Имя", "value": "$s2012_c1['storedValues']['firstName']"},
-                {"className":"FieldText", "label": "Отчество", "value": "$s2012_c1['storedValues']['middleName']"},
+                #if($s2017_c1)
+					#if($s2017_c2)
+						{"className":"FieldText", "label": "ФИО", "value": "$s2017_c2 $s2017_c3 $s2017_c4"},
+					#else
+						{"className":"FieldText", "label": "Название ореганизации", "value": "$s2017_c5"},
+					#end
+			    #end
+
                 #if($s2017_c1)
                     {"className":"FieldText", "label": "Адрес для переписки", "value": "$s2017_c6['fullAddress']"},
                 #else
@@ -222,7 +227,8 @@
          #if($s9006_c2['arguments']['SUBSERVICE'] == "fix_errors")
             #if($s1001_2_c2['arguments']['SUBSUBSERVICE'] != "patpov")
                 #if ($s1008_c1['storedValues']['firstName'])
-                    {"className":"FieldText", "label": "Почтовый адрес", "value": "$s1008_c1['storedValues']['lastName'] $s1008_c1['storedValues']['firstName'] $s1008_c1['storedValues']['middleName'] $s1952_c1['address']['fullAddress']"},
+                    {"className":"FieldText", "label": "ФИО", "value": "$s1008_c1['storedValues']['lastName'] $s1008_c1['storedValues']['firstName'] $s1008_c1['storedValues']['middleName']"},
+                    {"className":"FieldText", "label": "Почтовый адрес", "value": "$s1952_c1['address']['fullAddress']"},
                 #else
                     {"className":"FieldText", "label": "Почтовый адрес", "value": "$s1952_c1['address']['fullAddress']"},
                 #end
@@ -243,13 +249,15 @@
         #elseif ($s9006_c2['arguments']['SUBSERVICE'] == "restore")
                 #if($s7005_c1)
                     #if($s7002_c1['storedValues']['lastName'])
-                        {"className":"FieldText", "label": "Почтовый адрес", "value": "$s7002_c1['storedValues']['lastName'] $s7002_c1['storedValues']['firstName'] $s7002_c1['storedValues']['middleName'] $s7005_c1"},
+                        {"className":"FieldText", "label": "ФИО", "value": "$s7002_c1['storedValues']['lastName'] $s7002_c1['storedValues']['firstName'] $s7002_c1['storedValues']['middleName']"},
+                        {"className":"FieldText", "label": "Почтовый адрес", "value": "$s7005_c1"},
                     #else
                         {"className":"FieldText", "label": "Почтовый адрес", "value": "$s7005_c1"},
                     #end
                 #else
                     #if($s7002_c1['storedValues']['lastName'])
-                        {"className":"FieldText", "label": "Почтовый адрес", "value": "$s7002_c1['storedValues']['lastName'] $s7002_c1['storedValues']['firstName'] $s7002_c1['storedValues']['middleName'] $s7003_c1['address']['fullAddress']"},
+                        {"className":"FieldText", "label": "ФИО", "value": "$s7002_c1['storedValues']['lastName'] $s7002_c1['storedValues']['firstName'] $s7002_c1['storedValues']['middleName']"},
+                        {"className":"FieldText", "label": "Почтовый адрес", "value": "$s7003_c1['address']['fullAddress']"},
                     #else
                         {"className":"FieldText", "label": "Почтовый адрес", "value": "$s7003_c1['address']['fullAddress']"},
                     #end
@@ -261,7 +269,8 @@
                 {"className":"FieldText", "label": "Электронная почта", "value": "$s7007_2_c1"},
         #elseif ($s9006_c2['arguments']['SUBSERVICE'] == "change_reestr")
                 #if($s5005['storedValues']['firstName'])
-                    {"className":"FieldText", "label": "Почтовый адрес", "value": "$s5005['storedValues']['firstName'] $s5005['storedValues']['lastName'] $s5005['storedValues']['middleName'] $s5006_3_c1['address']['fullAddress']"},
+                    {"className":"FieldText", "label": "ФИО", "value": "$s5005['storedValues']['firstName'] $s5005['storedValues']['lastName'] $s5005['storedValues']['middleName']"},
+                    {"className":"FieldText", "label": "Почтовый адрес", "value": "$s5006_3_c1['address']['fullAddress']"},
                 #else
                     {"className":"FieldText", "label": "Почтовый адрес", "value": "$s5006_3_c1['address']['fullAddress']"},
                 #end
@@ -273,7 +282,8 @@
                 {"className":"FieldText", "label": "Электронная почта", "value": "$s5006_2_c1"},
         #elseif ($s9006_c2['arguments']['SUBSERVICE'] == "att_and_reg")
                 #if ($s2012_c1['storedValues']['firstName'])
-                    {"className":"FieldText", "label": "Почтовый адрес", "value": "$s2012_c1['storedValues']['firstName'] $s2012_c1['storedValues']['lastName'] $s2012_c1['storedValues']['middleName'] $s2015_c1['address']['fullAddress']"},
+                    {"className":"FieldText", "label": "ФИО", "value": "$s2012_c1['storedValues']['firstName'] $s2012_c1['storedValues']['lastName'] $s2012_c1['storedValues']['middleName']"},
+                    {"className":"FieldText", "label": "Почтовый адрес", "value": "$s2015_c1['address']['fullAddress']"},
                 #else
                     {"className":"FieldText", "label": "Почтовый адрес", "value": "$s2015_c1['address']['fullAddress']"},
                 #end
@@ -285,7 +295,8 @@
                 {"className":"FieldText", "label": "Электронная почта", "value": "$s2018_2_c1"},
         #elseif ($s9006_c2['arguments']['SUBSERVICE'] == "get_extract")
                 #if ($s0103_c1['storedValues']['firstName'])
-                    {"className":"FieldText", "label": "Почтовый адрес", "value": "$s0103_c1['storedValues']['firstName'] $s0103_c1['storedValues']['lastName'] $s0103_c1['storedValues']['middleName'] $s0152_c1['address']['fullAddress']"},
+                    {"className":"FieldText", "label": "ФИО", "value": "$s0103_c1['storedValues']['firstName'] $s0103_c1['storedValues']['lastName'] $s0103_c1['storedValues']['middleName']"},
+                    {"className":"FieldText", "label": "Почтовый адрес", "value": "$s0152_c1['address']['fullAddress']"},
                 #else
                     {"className":"FieldText", "label": "Почтовый адрес", "value": "$s0152_c1['address']['fullAddress']"},
                 #end
@@ -1172,7 +1183,7 @@
         #end
     #end
     #if ($s2019_c1 == "true"  || $s2019_c2 == "true" || $s2019_c3 == "true" || $s2019_c4 == "true" || $s2019_c5 == "true")
-        {"className":"FormStep", "label": "", "value": "Специализации, по которым хотите аттестоваться и зарегистрироваться"},
+        {"className":"FormStep", "label": "Специализации, по которым хотите аттестоваться и зарегистрироваться", "value": ""},
         #if($s2019_c1 == "true")
             {"className":"FieldText", "label": "Специализация", "value": "Изобретения и полезные модели"},
         #end
@@ -1190,7 +1201,7 @@
         #end
     #end
     #if ($s2005_2006_c1 != "true"  || $s2005_2006_c2 == "true" || $s2005_2006_c3 == "true" || $s2005_2006_c4 == "true" || $s2005_2006_c5 == "true")
-        {"className":"FormStep", "label": "", "value": "Специализации, по которым хотите аттестоваться и зарегистрироваться"},
+        {"className":"FormStep", "label": "Специализации, по которым хотите аттестоваться и зарегистрироваться", "value": ""},
         #if($s2005_2006_c1 == "true")
             {"className":"FieldText", "label": "Специализация", "value": "Изобретения и полезные модели"},
         #end
@@ -1205,26 +1216,6 @@
         #end
         #if($s2005_2006_c5 == "true")
             {"className":"FieldText", "label": "Специализация", "value": "Программы для ЭВМ, базы данных, топологии интегральных микросхем"},
-        #end
-    #end
-
-    #if ($s2006_c1)
-        #if ($s2006_c1 == "russia")
-            #if ($s2007_c1 == "after_1992")
-                {"className":"FieldText", "label": "Документ о высшем образовании получен", "value": "В России после 1992 года"},
-            #else
-                {"className":"FieldText", "label": "Документ о высшем образовании получен", "value": "В России до 1992 года"},
-            #end
-        #else
-            {"className":"FieldText", "label": "Документ о высшем образовании получен", "value": "За рубежом"},
-        #end
-    #end
-
-    #if ($s2008_c1)
-        #if ($s2008_c1 == "more_than_4")
-            {"className":"FieldText", "label": "Опыт работы:", "value": "Не менее 4 лет с даты получения высшего образования"},
-        #else
-            {"className":"FieldText", "label": "Опыт работы:", "value": "Не менее 2 лет, включая прохождение стажировки не менее 6 месяцев, с даты получения высшего образования"},
         #end
     #end
 
@@ -1252,6 +1243,19 @@
 
 	#if($s2022_c1)
         {"className":"FormStep", "label": "Сведения о документе об образовании", "value": ""},
+    
+    #if ($s2006_c1)
+        #if ($s2006_c1 == "russia")
+            #if ($s2007_c1 == "after_1992")
+                {"className":"FieldText", "label": "Документ о высшем образовании получен", "value": "В России после 1992 года"},
+            #else
+                {"className":"FieldText", "label": "Документ о высшем образовании получен", "value": "В России до 1992 года"},
+            #end
+        #else
+            {"className":"FieldText", "label": "Документ о высшем образовании получен", "value": "За рубежом"},
+        #end
+    #end
+
 		{"className":"FieldText", "label": "Название образовательного учреждения", "value": "$s2022_c1"},
 		{"className":"FieldText", "label": "Серия диплома", "value": "$s2022_c2"},
 		{"className":"FieldText", "label": "Номер диплома", "value": "$s2022_c3"},
@@ -1260,6 +1264,15 @@
 
     #if($s2024_c1 || $s2023_c1 || $s2026_c1)
         {"className":"FormStep", "label": "Сведения об опыте работы", "value": ""},
+    
+    #if ($s2008_c1)
+        #if ($s2008_c1 == "more_than_4")
+            {"className":"FieldText", "label": "Опыт работы:", "value": "Не менее 4 лет с даты получения высшего образования"},
+        #else
+            {"className":"FieldText", "label": "Опыт работы:", "value": "Не менее 2 лет, включая прохождение стажировки не менее 6 месяцев, с даты получения высшего образования"},
+        #end
+    #end
+    
 		#if($s2024_c1)
 			{"className":"FieldText", "label": "Полное имя", "value": "$s2024_c1"},
 			{"className":"FieldText", "label": "Номер сотрудника", "value": "$s2024_c2"},
@@ -1328,7 +1341,7 @@
             #end
             #if($s2050_c1 && $s2050_c1 != '')
 			    #foreach ($val in $s2050_c1)
-                    {"className":"FormStep", "label": "", "value": "Сведения о характере работ"},
+                    {"className":"FormStep", "label": "Сведения о характере работ", "value": ""},
 					{"className":"FieldText", "label": "Тип работы", "value": "$val['s2050_c1_1']"},
 						{"className":"FieldText", "label": "Дата начала", "value": "$val['s2050_c1_2'].substring(0,10)"},
 						#if($val['s2050_c1_3'])

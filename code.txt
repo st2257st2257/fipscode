@@ -536,37 +536,33 @@
     #else
     #end
 #if ($s7006_c1)
-    {"className":"FieldText", "label": "", "value": "Свдения о регистрации в реестре патентных поверенных"},
     {"className":"FieldText", "label": "Номер регистрации в Реестре патентных поверенных", "value": "$s7006_c1['originalItem']['value']"},
     {"className":"FieldText", "label": "Специализация", "value": "$s7006_c1['originalItem']['attributeValues']['Specializaciya']"},
     {"className":"FieldText", "label": "ФИО", "value": "$s7006_c1['id']"},
 #end
 #if ($s5007)
-    {"className":"FieldText", "label": "", "value": "Свдения о регистрации в реестре патентных поверенных"},
     {"className":"FieldText", "label": "Номер регистрации в Реестре патентных поверенных", "value": "$s5007['originalItem']['value']"},
     {"className":"FieldText", "label": "Специализация", "value": "$s5007['originalItem']['attributeValues']['Specializaciya']"},
     {"className":"FieldText", "label": "ФИО", "value": "$s5007['id']"},
 #end
 #if ($s0105_c1)
-    {"className":"FieldText", "label": "", "value": "Свдения о регистрации в реестре патентных поверенных"},
     {"className":"FieldText", "label": "Номер регистрации в Реестре патентных поверенных", "value": "$s0105_c1['originalItem']['value']"},
     {"className":"FieldText", "label": "Специализация", "value": "$s0105_c1['originalItem']['attributeValues']['Specializaciya']"},
     {"className":"FieldText", "label": "ФИО", "value": "$s0105_c1['id']"},
 #end
 #if ($s1005_c1)
-    {"className":"FieldText", "label": "", "value": "Свдения о регистрации в реестре патентных поверенных"},
-    {"className":"FieldText", "label": "Номер регистрации в Реестре патентных поверенных", "value": "$s1005_c1['originalItem']['value']"},
-    {"className":"FieldText", "label": "Специализация", "value": "$s1005_c1['originalItem']['attributeValues']['Specializaciya']"},
-    {"className":"FieldText", "label": "ФИО", "value": "$s1005_c1['id']"},
+    #if($s9006_c3['arguments']['WHOAREYOU'] == "applicant")
+        {"className":"FieldText", "label": "Номер регистрации в Реестре патентных поверенных", "value": "$s1005_c1['originalItem']['value']"},
+        {"className":"FieldText", "label": "Специализация", "value": "$s1005_c1['originalItem']['attributeValues']['Specializaciya']"},
+        {"className":"FieldText", "label": "ФИО", "value": "$s1005_c1['id']"},
+    #end
 #end
 #if ($s4005_c1)
-    {"className":"FieldText", "label": "", "value": "Свдения о регистрации в реестре патентных поверенных"},
     {"className":"FieldText", "label": "Номер регистрации в Реестре патентных поверенных", "value": "$s4005_c1['originalItem']['value']"},
     {"className":"FieldText", "label": "Специализация", "value": "$s4005_c1['originalItem']['attributeValues']['Specializaciya']"},
     {"className":"FieldText", "label": "ФИО", "value": "$s4005_c1['id']"},
 #end
 #if ($s6027_c1)
-    {"className":"FieldText", "label": "", "value": "Свдения о регистрации в реестре патентных поверенных"},
     {"className":"FieldText", "label": "Номер регистрации в Реестре патентных поверенных", "value": "$s6027_c1['originalItem']['value']"},
     {"className":"FieldText", "label": "Специализация", "value": "$s6027_c1['originalItem']['attributeValues']['Specializaciya']"},
     {"className":"FieldText", "label": "ФИО", "value": "$s6027_c1['id']"},
@@ -1458,7 +1454,15 @@
 #end
 
 #if($s6026_c1)
-	#if($s6026_c4)
+	#if($s6026_c1['id'] == 'fiz' || $s6026_c1['id'] == 'for_citizen')
+		{"className":"FieldText", "label": "ФИО", "value": "$s6026_c8 $s6026_c9 $s6026_c10"},
+	#elseif($s6026_c1['id'] == 'ip')
+		{"className":"FieldText", "label": "ФИО", "value": "$s6026_c8 $s6026_c9 $s6026_c10"},
+	#elseif($s6026_c1['id'] == 'rus_ur' || $s6026_c1['id'] == 'inorg')
+		{"className":"FieldText", "label": "Наименование", "value": "$s6026_c2"},
+	#end
+
+    #if($s6026_c4)
 		{"className":"FieldText", "label": "ИНН", "value": "$s6026_c4"},
 	#end
 	#if($s6026_c3)
@@ -1475,14 +1479,6 @@
 	#end
 	#if($s6026_c11 && $s6026_c11['snils'])
 		{"className":"FieldText", "label": "СНИЛС", "value": "$s6026_c11['snils']"},
-	#end
-
-	#if($s6026_c1['id'] == 'fiz' || $s6026_c1['id'] == 'for_citizen')
-		{"className":"FieldText", "label": "ФИО", "value": "$s6026_c8 $s6026_c9 $s6026_c10"},
-	#elseif($s6026_c1['id'] == 'ip')
-		{"className":"FieldText", "label": "ФИО", "value": "$s6026_c8 $s6026_c9 $s6026_c10"},
-	#elseif($s6026_c1['id'] == 'rus_ur' || $s6026_c1['id'] == 'inorg')
-		{"className":"FieldText", "label": "Наименование", "value": "$s6026_c2"},
 	#end
 
     #if($s6026_c14)
@@ -1508,6 +1504,15 @@
 
 #if($s6029_c1)
     {"className":"FieldText", "label": "", "value": "Причина исключения из Реестра"},
+
+    #if ($s1005_c1)
+        #if($s9006_c3['arguments']['WHOAREYOU'] != "applicant")
+            {"className":"FieldText", "label": "Номер регистрации в Реестре патентных поверенных", "value": "$s1005_c1['originalItem']['value']"},
+            {"className":"FieldText", "label": "Специализация", "value": "$s1005_c1['originalItem']['attributeValues']['Specializaciya']"},
+            {"className":"FieldText", "label": "ФИО", "value": "$s1005_c1['id']"},
+        #end
+    #end
+    
     #if($s6029_c1['id'] == 'move_another_service') 
         {"className":"FieldText", "label": "Причина", "value": "Переход на государственную или муниципальную службу"},
     #end
@@ -1532,8 +1537,16 @@
 #end
 
 #if($s1013_c1)
-    {"className":"FieldText", "label": "", "value": "Получатель услуги"},
-	#if($s1013_c4)
+    {"className":"FieldText", "label": "", "value": "Получатель услуги"},	
+    #if($s1013_c1['id'] == 'fiz' || $s1013_c1['id'] == 'for_citizen')
+		{"className":"FieldText", "label": "Полное имя", "value": "$s1013_c8 $s1013_c9 $s1013_c10"},
+	#elseif($s1013_c1['id'] == 'ip')
+		{"className":"FieldText", "label": "Полное имя", "value": "$s1013_c8 $s1013_c9 $s1013_c10"},
+	#elseif($s1013_c1['id'] == 'rus_ur' || $s1013_c1['id'] == 'inorg')
+		{"className":"FieldText", "label": "Полное наименование", "value": "$s1013_c2"},
+    #end
+
+    #if($s1013_c4)
 		{"className":"FieldText", "label": "ИНН", "value": "$s1013_c4"},
 	#end
 
@@ -1556,14 +1569,6 @@
 	#if($s1013_c11 && $s1013_c11['snils'])
 		{"className":"FieldText", "label": "СНИЛС", "value": "$s1013_c11['snils']"},
 	#end
-	
-    #if($s1013_c1['id'] == 'fiz' || $s1013_c1['id'] == 'for_citizen')
-		{"className":"FieldText", "label": "Полное имя", "value": "$s1013_c8 $s1013_c9 $s1013_c10"},
-	#elseif($s1013_c1['id'] == 'ip')
-		{"className":"FieldText", "label": "Полное имя", "value": "$s1013_c8 $s1013_c9 $s1013_c10"},
-	#elseif($s1013_c1['id'] == 'rus_ur' || $s1013_c1['id'] == 'inorg')
-		{"className":"FieldText", "label": "Полное наименование", "value": "$s1013_c2"},
-    #end
     
     #if($s1013_c14)
 		#if($s1013_c16)
